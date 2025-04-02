@@ -1,11 +1,12 @@
 
 import { useState, useEffect } from "react";
-import { User, Briefcase, Mail, Code, Menu, X } from "lucide-react";
+import { User, Briefcase, Mail, Code, Menu, X, Lightbulb } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navigation = [
   { name: "Home", href: "#hero", icon: User },
   { name: "Projects", href: "#projects", icon: Briefcase },
+  { name: "Skills", href: "#skills", icon: Lightbulb },
   { name: "About", href: "#about", icon: Code },
   { name: "Contact", href: "#contact", icon: Mail },
 ];

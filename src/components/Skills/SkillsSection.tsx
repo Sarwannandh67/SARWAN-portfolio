@@ -1,12 +1,11 @@
 
-import { Code, Layout, Database, Terminal, Globe, Users } from "lucide-react";
+import { Code, Database, Terminal } from "lucide-react";
 import ScrollReveal from "../UI/ScrollReveal";
 import GlassCard from "../UI/GlassCard";
 
 type Skill = {
   name: string;
-  level: number;
-  icon?: React.ReactNode;
+  icon: string;
 };
 
 type SkillCategory = {
@@ -18,35 +17,35 @@ type SkillCategory = {
 const skillCategories: SkillCategory[] = [
   {
     title: "Frontend Development",
-    icon: <Layout className="h-6 w-6 text-primary" />,
+    icon: <Code className="h-6 w-6 text-primary" />,
     skills: [
-      { name: "React.js", level: 90 },
-      { name: "TypeScript", level: 85 },
-      { name: "Tailwind CSS", level: 95 },
-      { name: "Next.js", level: 80 },
-      { name: "Framer Motion", level: 75 },
+      { name: "React.js", icon: "react" },
+      { name: "TypeScript", icon: "typescript" },
+      { name: "Tailwind CSS", icon: "tailwindcss" },
+      { name: "Next.js", icon: "nextjs" },
+      { name: "HTML/CSS", icon: "html" },
     ],
   },
   {
     title: "Backend Development",
     icon: <Database className="h-6 w-6 text-primary" />,
     skills: [
-      { name: "Node.js", level: 85 },
-      { name: "Express", level: 80 },
-      { name: "Python", level: 75 },
-      { name: "MongoDB", level: 70 },
-      { name: "PostgreSQL", level: 75 },
+      { name: "Node.js", icon: "nodejs" },
+      { name: "Express", icon: "express" },
+      { name: "MongoDB", icon: "mongodb" },
+      { name: "PostgreSQL", icon: "postgresql" },
+      { name: "GraphQL", icon: "graphql" },
     ],
   },
   {
     title: "Development Tools",
     icon: <Terminal className="h-6 w-6 text-primary" />,
     skills: [
-      { name: "Git", level: 90 },
-      { name: "Docker", level: 70 },
-      { name: "CI/CD", level: 75 },
-      { name: "AWS", level: 65 },
-      { name: "Testing", level: 80 },
+      { name: "Git", icon: "git" },
+      { name: "Docker", icon: "docker" },
+      { name: "VS Code", icon: "vscode" },
+      { name: "GitHub", icon: "github" },
+      { name: "Figma", icon: "figma" },
     ],
   },
 ];
@@ -72,24 +71,15 @@ const SkillsSection = () => {
                   </div>
                   <h3 className="text-xl font-bold">{category.title}</h3>
                 </div>
-                <div className="space-y-5">
+                <div className="grid grid-cols-3 gap-4">
                   {category.skills.map((skill) => (
-                    <div key={skill.name} className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <span className="font-medium">{skill.name}</span>
-                        <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                    <div key={skill.name} className="flex flex-col items-center text-center">
+                      <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-white/10 p-2 mb-2">
+                        <div className={`icon-${skill.icon} w-8 h-8 bg-primary/60 rounded-md flex items-center justify-center`}>
+                          {skill.name.substring(0, 2)}
+                        </div>
                       </div>
-                      <div className="h-2 w-full bg-muted/50 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-1000 ease-out"
-                          style={{ 
-                            width: `${skill.level}%`,
-                            transform: 'translateX(-100%)',
-                            animation: 'slideRight 1.5s ease-out forwards',
-                            animationDelay: `${600 + categoryIndex * 200}ms`
-                          }}
-                        ></div>
-                      </div>
+                      <span className="text-sm">{skill.name}</span>
                     </div>
                   ))}
                 </div>
