@@ -1,0 +1,198 @@
+
+import { useState, FormEvent } from "react";
+import { Mail, Send, Github, Code } from "lucide-react";
+import ScrollReveal from "../UI/ScrollReveal";
+import GlassCard from "../UI/GlassCard";
+import { toast } from "@/hooks/use-toast";
+
+type FormState = {
+  name: string;
+  email: string;
+  message: string;
+};
+
+const ContactSection = () => {
+  const [formData, setFormData] = useState<FormState>({
+    name: "",
+    email: "",
+    message: ""
+  });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    setTimeout(() => {
+      toast({
+        title: "Message sent!",
+        description: "Thanks for reaching out. I'll get back to you soon.",
+      });
+      
+      setFormData({
+        name: "",
+        email: "",
+        message: ""
+      });
+      
+      setIsSubmitting(false);
+    }, 1500);
+  };
+
+  return (
+    <section id="contact" className="py-20 px-4">
+      <div className="container mx-auto max-w-6xl">
+        <ScrollReveal>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text text-center">Get In Touch</h2>
+          <p className="text-xl text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Have a project in mind or just want to say hello? Feel free to reach out.
+          </p>
+        </ScrollReveal>
+
+        <div className="flex flex-col md:flex-row gap-8">
+          <ScrollReveal delay={100} className="md:w-2/5">
+            <GlassCard className="p-8 h-full">
+              <h3 className="text-2xl font-bold mb-6 gradient-text">Contact Info</h3>
+              
+              <div className="space-y-6 mb-8">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-full bg-primary/20 mt-1">
+                    <Mail className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg">Email</h4>
+                    <a href="mailto:hello@example.com" className="text-muted-foreground hover:text-primary transition-colors">
+                      hello@example.com
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-full bg-primary/20 mt-1">
+                    <Github className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg">GitHub</h4>
+                    <a 
+                      href="https://github.com/username" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      github.com/username
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-full bg-primary/20 mt-1">
+                    <Code className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg">Portfolio</h4>
+                    <a 
+                      href="#" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      portfolio.example.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+              <p className="text-muted-foreground">
+                I'm currently available for freelance work and full-time positions. 
+                Let's create something amazing together!
+              </p>
+            </GlassCard>
+          </ScrollReveal>
+
+          <ScrollReveal delay={200} className="md:w-3/5">
+            <GlassCard className="p-8">
+              <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium mb-2">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-muted/50 border border-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    placeholder="Your Name"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-muted/50 border border-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    placeholder="your.email@example.com"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={5}
+                    className="w-full px-4 py-3 bg-muted/50 border border-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
+                    placeholder="How can I help you?"
+                  />
+                </div>
+                
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="flex items-center justify-center gap-2 w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 px-6 rounded-lg transition-colors disabled:opacity-70"
+                >
+                  {isSubmitting ? (
+                    <>Processing...</>
+                  ) : (
+                    <>
+                      <Send className="h-5 w-5" />
+                      <span>Send Message</span>
+                    </>
+                  )}
+                </button>
+              </form>
+            </GlassCard>
+          </ScrollReveal>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ContactSection;
