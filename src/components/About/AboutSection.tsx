@@ -31,7 +31,7 @@ const AboutSection = () => {
   return (
     <section id="about" className="py-20 px-4">
       <div className="container mx-auto max-w-6xl">
-        <ScrollReveal>
+        <ScrollReveal delay={400}>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text text-center">About Me</h2>
           <p className="text-xl text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
             Learn more about my skills, experience, and what I can bring to your project.
@@ -39,7 +39,7 @@ const AboutSection = () => {
         </ScrollReveal>
 
         {/* Bio */}
-        <ScrollReveal delay={100}>
+        <ScrollReveal delay={600}>
           <GlassCard className="p-8 mb-12">
             <div className="flex flex-col md:flex-row gap-8">
               <div className="md:w-1/3">
@@ -70,7 +70,7 @@ const AboutSection = () => {
         </ScrollReveal>
 
         {/* Skills */}
-        <ScrollReveal delay={200}>
+        <ScrollReveal delay={800}>
           <h3 className="text-2xl font-bold mb-6 text-center">My Skills</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {skills.map((skillGroup, index) => (
@@ -92,7 +92,7 @@ const AboutSection = () => {
         </ScrollReveal>
 
         {/* Services */}
-        <ScrollReveal delay={300}>
+        <ScrollReveal delay={1000}>
           <h3 className="text-2xl font-bold mb-6 text-center">Services</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {services.map((service, index) => {

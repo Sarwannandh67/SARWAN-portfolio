@@ -52,7 +52,7 @@ const ContactSection = () => {
   return (
     <section id="contact" className="py-20 px-4">
       <div className="container mx-auto max-w-6xl">
-        <ScrollReveal>
+        <ScrollReveal delay={400}>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text text-center">Get In Touch</h2>
           <p className="text-xl text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
             Have a project in mind or just want to say hello? Feel free to reach out.
@@ -60,7 +60,7 @@ const ContactSection = () => {
         </ScrollReveal>
 
         <div className="flex flex-col md:flex-row gap-8">
-          <ScrollReveal delay={100} className="md:w-2/5">
+          <ScrollReveal delay={600} className="md:w-2/5">
             <GlassCard className="p-8 h-full">
               <h3 className="text-2xl font-bold mb-6 gradient-text">Contact Info</h3>
               
@@ -119,7 +119,7 @@ const ContactSection = () => {
             </GlassCard>
           </ScrollReveal>
 
-          <ScrollReveal delay={200} className="md:w-3/5">
+          <ScrollReveal delay={800} className="md:w-3/5">
             <GlassCard className="p-8">
               <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
               

@@ -50,7 +50,7 @@ const ProjectsSection = () => {
   return (
     <section id="projects" className="py-20 px-4">
       <div className="container mx-auto max-w-6xl">
-        <ScrollReveal>
+        <ScrollReveal delay={400}>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text text-center">Projects</h2>
           <p className="text-xl text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
             Explore my recent work and the technologies I've been working with.
@@ -61,7 +61,7 @@ const ProjectsSection = () => {
           {projects.map((project, index) => (
             <ScrollReveal
               key={project.id}
-              delay={index * 100}
+              delay={600 + index * 200}
               threshold={0.2}
             >
               <GlassCard 
