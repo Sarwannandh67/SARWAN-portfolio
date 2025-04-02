@@ -1,6 +1,8 @@
 
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { Download } from "lucide-react";
+import { Button } from "../ui/button";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -29,20 +31,30 @@ const Header = () => {
           </div>
           <span className="font-bold text-lg gradient-text">Portfolio</span>
         </a>
-        <nav className="hidden md:flex">
-          <ul className="flex space-x-8">
-            {["Home", "Projects", "Skills", "About", "Contact"].map((item) => (
-              <li key={item}>
-                <a 
-                  href={`#${item.toLowerCase()}`}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {item}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="flex items-center gap-4">
+          <nav className="hidden md:flex">
+            <ul className="flex space-x-8">
+              {["Home", "Projects", "Skills", "About", "Contact"].map((item) => (
+                <li key={item}>
+                  <a 
+                    href={`#${item.toLowerCase()}`}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="flex items-center gap-2 border-primary text-primary hover:bg-primary/10"
+            onClick={() => window.open("/resume.pdf", "_blank")}
+          >
+            Resume <Download className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
     </header>
   );

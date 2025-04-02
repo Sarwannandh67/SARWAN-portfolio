@@ -1,8 +1,9 @@
 
 import { useEffect, useState } from "react";
 import ScrollReveal from "../UI/ScrollReveal";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
 
 const HeroSection = () => {
   const [titleComplete, setTitleComplete] = useState(false);
@@ -104,6 +105,13 @@ const HeroSection = () => {
             >
               Get in Touch
             </a>
+            <Button 
+              variant="outline"
+              className="rounded-full border-secondary text-secondary hover:bg-secondary/10 flex items-center gap-2"
+              onClick={() => window.open("/resume.pdf", "_blank")}
+            >
+              Download Resume <Download className="h-4 w-4" />
+            </Button>
           </div>
         </ScrollReveal>
       </div>
