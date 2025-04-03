@@ -1,17 +1,20 @@
 
 import { useState, useEffect } from "react";
-import { User, Briefcase, Mail, Code, Menu, X, Lightbulb } from "lucide-react";
+import { User, Briefcase, Mail, Code, Menu, X, Lightbulb, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Link, useLocation } from "react-router-dom";
 
 const navigation = [
-  { name: "Home", href: "#hero", icon: User },
-  { name: "Projects", href: "#projects", icon: Briefcase },
-  { name: "Skills", href: "#skills", icon: Lightbulb },
-  { name: "About", href: "#about", icon: Code },
-  { name: "Contact", href: "#contact", icon: Mail },
+  { name: "Home", href: "/", icon: User, exact: true },
+  { name: "Projects", href: "/#projects", icon: Briefcase, exact: false },
+  { name: "Skills", href: "/#skills", icon: Lightbulb, exact: false },
+  { name: "About", href: "/#about", icon: Code, exact: false },
+  { name: "Contact", href: "/#contact", icon: Mail, exact: false },
+  { name: "Blog", href: "/blog", icon: BookOpen, exact: true },
 ];
 
 const FloatingNav = () => {
+  const location = useLocation();
   const [activeSection, setActiveSection] = useState("hero");
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -30,16 +33,19 @@ const FloatingNav = () => {
       
       setLastScrollY(currentScrollY);
       
-      // Determine active section
-      const sections = navigation.map(item => item.href.substring(1));
-      
-      for (const section of sections.reverse()) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 150) {
-            setActiveSection(section);
-            break;
+      // Only determine active section on homepage
+      if (location.pathname === '/') {
+        // Determine active section
+        const sections = ["hero", "projects", "skills", "about", "contact"];
+        
+        for (const section of sections.reverse()) {
+          const element = document.getElementById(section);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= 150) {
+              setActiveSection(section);
+              break;
+            }
           }
         }
       }
@@ -47,10 +53,20 @@ const FloatingNav = () => {
     
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, [lastScrollY, location.pathname]);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const isActive = (item) => {
+    if (item.exact) {
+      return item.href === location.pathname;
+    } else if (item.href.startsWith('/#')) {
+      const section = item.href.substring(2);
+      return location.pathname === '/' && activeSection === section;
+    }
+    return false;
   };
 
   return (
@@ -64,17 +80,31 @@ const FloatingNav = () => {
       >
         <div className="glass px-4 py-3 rounded-full flex items-center space-x-2">
           {navigation.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className={cn(
-                "nav-item flex items-center space-x-1",
-                activeSection === item.href.substring(1) && "active"
-              )}
-            >
-              <item.icon className="h-4 w-4" />
-              <span>{item.name}</span>
-            </a>
+            item.href.startsWith('/#') ? (
+              <a
+                key={item.name}
+                href={item.href}
+                className={cn(
+                  "nav-item flex items-center space-x-1",
+                  isActive(item) && "active"
+                )}
+              >
+                <item.icon className="h-4 w-4" />
+                <span>{item.name}</span>
+              </a>
+            ) : (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={cn(
+                  "nav-item flex items-center space-x-1",
+                  isActive(item) && "active"
+                )}
+              >
+                <item.icon className="h-4 w-4" />
+                <span>{item.name}</span>
+              </Link>
+            )
           ))}
         </div>
       </nav>
@@ -99,18 +129,33 @@ const FloatingNav = () => {
         <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
         <nav className="absolute bottom-24 right-8 glass p-4 rounded-xl flex flex-col space-y-2">
           {navigation.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className={cn(
-                "nav-item flex items-center space-x-2 px-4 py-2",
-                activeSection === item.href.substring(1) && "active"
-              )}
-            >
-              <item.icon className="h-5 w-5" />
-              <span>{item.name}</span>
-            </a>
+            item.href.startsWith('/#') ? (
+              <a
+                key={item.name}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={cn(
+                  "nav-item flex items-center space-x-2 px-4 py-2",
+                  isActive(item) && "active"
+                )}
+              >
+                <item.icon className="h-5 w-5" />
+                <span>{item.name}</span>
+              </a>
+            ) : (
+              <Link
+                key={item.name}
+                to={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={cn(
+                  "nav-item flex items-center space-x-2 px-4 py-2",
+                  isActive(item) && "active"
+                )}
+              >
+                <item.icon className="h-5 w-5" />
+                <span>{item.name}</span>
+              </Link>
+            )
           ))}
         </nav>
       </div>

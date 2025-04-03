@@ -115,7 +115,20 @@
   }
 
   .animated-bg {
-    @apply hidden;
+    @apply absolute inset-0 -z-10 opacity-20;
+    background: radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.3) 0%, rgba(17, 24, 39, 0) 50%);
+    animation: pulse 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.2;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0.3;
+    }
   }
 
   @keyframes backgroundMovement {
@@ -135,6 +148,49 @@
       transform: translateX(0);
     }
   }
+  
+  /* Scroll animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  .animate-fade-in-down {
+    animation: fadeInDown 0.6s ease-out forwards;
+  }
+  
+  .scroll-animate {
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+  }
+  
+  .scroll-up {
+    transform: translateY(-20px);
+  }
+  
+  .scroll-down {
+    transform: translateY(20px);
+  }
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -149,4 +205,25 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+}
+
+/* Blog styles */
+.blog-content img {
+  @apply rounded-lg my-6 max-w-full;
+}
+
+.blog-content h2 {
+  @apply text-2xl font-bold mt-8 mb-4;
+}
+
+.blog-content p {
+  @apply mb-4 text-muted-foreground;
+}
+
+.blog-content ul {
+  @apply list-disc pl-5 mb-4;
+}
+
+.blog-content blockquote {
+  @apply border-l-4 border-primary pl-4 italic my-4;
 }

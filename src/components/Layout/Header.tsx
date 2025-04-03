@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Download } from "lucide-react";
 import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -25,25 +26,41 @@ const Header = () => {
       )}
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <a href="#hero" className="flex items-center space-x-2">
+        <Link to="/" className="flex items-center space-x-2">
           <div className="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
             <span className="text-white font-bold text-lg">P</span>
           </div>
           <span className="font-bold text-lg gradient-text">Portfolio</span>
-        </a>
+        </Link>
         <div className="flex items-center gap-4">
           <nav className="hidden md:flex">
             <ul className="flex space-x-8">
-              {["Home", "Projects", "Skills", "About", "Contact"].map((item) => (
+              <li>
+                <Link
+                  to="/"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Home
+                </Link>
+              </li>
+              {["Projects", "Skills", "About", "Contact"].map((item) => (
                 <li key={item}>
                   <a 
-                    href={`#${item.toLowerCase()}`}
+                    href={`/#${item.toLowerCase()}`}
                     className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {item}
                   </a>
                 </li>
               ))}
+              <li>
+                <Link
+                  to="/blog"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Blog
+                </Link>
+              </li>
             </ul>
           </nav>
           <Button 
