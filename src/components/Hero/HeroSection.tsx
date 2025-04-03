@@ -1,6 +1,8 @@
 
 import { useEffect, useState } from "react";
+import { Player } from "@lottiefiles/react-lottie-player";
 import ScrollReveal from "../UI/ScrollReveal";
+import ParticlesBackground from "../UI/ParticlesBackground";
 import { ArrowDown, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
@@ -13,7 +15,7 @@ const HeroSection = () => {
     // Simulate loading
     const timer = setTimeout(() => {
       setIsLoaded(true);
-    }, 800); // Increased from 500 to 800
+    }, 800);
     return () => clearTimeout(timer);
   }, []);
 
@@ -22,7 +24,7 @@ const HeroSection = () => {
     if (isLoaded) {
       const timer = setTimeout(() => {
         setTitleComplete(true);
-      }, 2500); // Increased from 1500 to 2500
+      }, 2500);
       return () => clearTimeout(timer);
     }
   }, [isLoaded]);
@@ -33,8 +35,11 @@ const HeroSection = () => {
   return (
     <section 
       id="hero" 
-      className="min-h-screen flex flex-col justify-center items-center relative px-4 py-20"
+      className="min-h-screen flex flex-col justify-center items-center relative px-4 py-20 overflow-hidden"
     >
+      {/* Particles Background */}
+      <ParticlesBackground className="absolute inset-0 -z-10" />
+      
       <div className="container max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
           <div className="md:w-1/2 text-center md:text-left">
@@ -79,9 +84,11 @@ const HeroSection = () => {
               <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden">
                 <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-primary/30 to-secondary/30 rounded-full" style={{ animationDuration: '4s' }}></div>
                 <div className="absolute inset-2 rounded-full overflow-hidden glass border-2 border-white/20">
-                  <img 
-                    src="https://via.placeholder.com/400x400?text=Profile" 
-                    alt="Developer Profile" 
+                  {/* Replace static image with Lottie animation */}
+                  <Player
+                    autoplay
+                    loop
+                    src="https://lottie.host/2e947f5b-119b-4b9a-8b5d-7ee168361537/eJBWCuHWGt.json"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -95,19 +102,19 @@ const HeroSection = () => {
           <div className="flex flex-wrap justify-center md:justify-start gap-4 mt-8">
             <a 
               href="#projects"
-              className="bg-primary hover:bg-primary/80 text-primary-foreground rounded-full px-8 py-3 font-medium transition-all"
+              className="bg-primary hover:bg-primary/80 text-primary-foreground rounded-full px-8 py-3 font-medium transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
             >
               View My Work
             </a>
             <a 
               href="#contact"
-              className="bg-transparent border border-primary text-primary hover:bg-primary/10 rounded-full px-8 py-3 font-medium transition-all"
+              className="bg-transparent border border-primary text-primary hover:bg-primary/10 rounded-full px-8 py-3 font-medium transition-all hover:scale-105"
             >
               Get in Touch
             </a>
             <Button 
               variant="outline"
-              className="rounded-full border-secondary text-secondary hover:bg-secondary/10 flex items-center gap-2"
+              className="rounded-full border-secondary text-secondary hover:bg-secondary/10 flex items-center gap-2 hover:scale-105 transition-transform"
               onClick={() => window.open("/resume.pdf", "_blank")}
             >
               Download Resume <Download className="h-4 w-4" />

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import ScrollReveal from "../UI/ScrollReveal";
 import GlassCard from "../UI/GlassCard";
-import { Github, Link } from "lucide-react";
+import { Github, Link, ArrowUpRight } from "lucide-react";
 
 // Project data
 const projects = [
@@ -65,7 +65,7 @@ const ProjectsSection = () => {
               threshold={0.2}
             >
               <GlassCard 
-                className="h-full p-6 flex flex-col"
+                className="h-full p-6 flex flex-col group"
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
               >
@@ -78,9 +78,29 @@ const ProjectsSection = () => {
                       transform: hoveredProject === project.id ? 'scale(1.05)' : 'scale(1)'
                     }}
                   />
+                  <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-300 flex items-end justify-start p-4 ${hoveredProject === project.id ? 'opacity-100' : 'opacity-0'}`}>
+                    <div className="space-x-3">
+                      <a 
+                        href={project.liveUrl} 
+                        className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/40 transition-colors"
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        <ArrowUpRight size={18} />
+                      </a>
+                      <a 
+                        href={project.githubUrl} 
+                        className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/40 transition-colors"
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        <Github size={18} />
+                      </a>
+                    </div>
+                  </div>
                 </div>
                 
-                <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
+                <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
                 
                 <p className="text-muted-foreground mb-4 flex-grow">{project.description}</p>
                 
@@ -88,7 +108,7 @@ const ProjectsSection = () => {
                   {project.tags.map((tag) => (
                     <span 
                       key={tag} 
-                      className="text-xs bg-primary/20 text-primary-foreground px-3 py-1 rounded-full"
+                      className="text-xs bg-primary/20 text-primary-foreground px-3 py-1 rounded-full transition-all duration-300 group-hover:bg-primary/30"
                     >
                       {tag}
                     </span>
