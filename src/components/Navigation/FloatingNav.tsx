@@ -8,6 +8,7 @@ const navigation = [
   { name: "Home", href: "/", icon: User, exact: true },
   { name: "Projects", href: "/#projects", icon: Briefcase, exact: false },
   { name: "Skills", href: "/#skills", icon: Lightbulb, exact: false },
+  { name: "Testimonials", href: "/#testimonials", icon: Code, exact: false },
   { name: "About", href: "/#about", icon: Code, exact: false },
   { name: "Contact", href: "/#contact", icon: Mail, exact: false },
   { name: "Blog", href: "/blog", icon: BookOpen, exact: true },
@@ -36,7 +37,7 @@ const FloatingNav = () => {
       // Only determine active section on homepage
       if (location.pathname === '/') {
         // Determine active section
-        const sections = ["hero", "projects", "skills", "about", "contact"];
+        const sections = ["hero", "projects", "skills", "testimonials", "about", "contact"];
         
         for (const section of sections.reverse()) {
           const element = document.getElementById(section);

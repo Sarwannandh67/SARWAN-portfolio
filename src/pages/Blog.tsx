@@ -68,7 +68,7 @@ const Blog = () => {
   return (
     <Layout>
       <div className="container mx-auto px-4 py-20">
-        <ScrollReveal className="mb-16" animation="fade-in" delay={100}>
+        <ScrollReveal className="mb-16" animation="fade-up" delay={100}>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">Blog</h1>
           <p className="text-xl text-muted-foreground max-w-2xl">
             Insights, tutorials, and thoughts on web development, design, and technology.
@@ -81,7 +81,7 @@ const Blog = () => {
               key={post.id}
               delay={100 + index * 100} 
               className="h-full"
-              animation="fade-in"
+              animation="fade-up"
               threshold={0.1}
             >
               <Card className="glass-card overflow-hidden h-full flex flex-col">

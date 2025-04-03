@@ -43,7 +43,7 @@ const Header = () => {
                   Home
                 </Link>
               </li>
-              {["Projects", "Skills", "About", "Contact"].map((item) => (
+              {["Projects", "Skills", "Testimonials", "About", "Contact"].map((item) => (
                 <li key={item}>
                   <a 
                     href={`/#${item.toLowerCase()}`}
