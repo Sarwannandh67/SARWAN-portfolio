@@ -1,7 +1,7 @@
 
 import { useCallback } from "react";
 import Particles from "react-tsparticles";
-import { loadSlim } from "tsparticles-slim";
+import { loadFull } from "tsparticles"; // Using loadFull instead of loadSlim
 
 interface ParticlesBackgroundProps {
   className?: string;
@@ -9,7 +9,8 @@ interface ParticlesBackgroundProps {
 
 const ParticlesBackground = ({ className }: ParticlesBackgroundProps) => {
   const particlesInit = useCallback(async (engine: any) => {
-    await loadSlim(engine);
+    // This will load the full tsParticles package
+    await loadFull(engine);
   }, []);
 
   return (
