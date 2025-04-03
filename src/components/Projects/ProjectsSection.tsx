@@ -2,7 +2,7 @@
 import { useState } from "react";
 import ScrollReveal from "../UI/ScrollReveal";
 import GlassCard from "../UI/GlassCard";
-import { Github, Link, ArrowUpRight } from "lucide-react";
+import { Github, Link, ArrowUpRight, Sparkles } from "lucide-react";
 
 // Project data
 const projects = [
@@ -65,24 +65,27 @@ const ProjectsSection = () => {
               threshold={0.2}
             >
               <GlassCard 
-                className="h-full p-6 flex flex-col group"
+                className="h-full p-6 flex flex-col group relative overflow-hidden"
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
               >
+                {/* Animated corner sparkle */}
+                <div className="absolute -top-10 -right-10 w-20 h-20 bg-gradient-to-br from-primary/30 to-secondary/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 group-hover:animate-pulse"></div>
+                
                 <div className="relative overflow-hidden rounded-lg mb-6 aspect-video">
                   <img 
                     src={project.imageUrl} 
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500"
+                    className="w-full h-full object-cover transition-all duration-700"
                     style={{ 
                       transform: hoveredProject === project.id ? 'scale(1.05)' : 'scale(1)'
                     }}
                   />
-                  <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-300 flex items-end justify-start p-4 ${hoveredProject === project.id ? 'opacity-100' : 'opacity-0'}`}>
-                    <div className="space-x-3">
+                  <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent transition-all duration-500 flex items-end justify-between p-4 ${hoveredProject === project.id ? 'opacity-100' : 'opacity-0'}`}>
+                    <div className="space-x-3 translate-y-4 transition-transform duration-500 group-hover:translate-y-0">
                       <a 
                         href={project.liveUrl} 
-                        className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/40 transition-colors"
+                        className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/40 transition-all duration-300 hover:scale-110"
                         target="_blank" 
                         rel="noopener noreferrer"
                       >
@@ -90,17 +93,24 @@ const ProjectsSection = () => {
                       </a>
                       <a 
                         href={project.githubUrl} 
-                        className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/40 transition-colors"
+                        className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/40 transition-all duration-300 hover:scale-110"
                         target="_blank" 
                         rel="noopener noreferrer"
                       >
                         <Github size={18} />
                       </a>
                     </div>
+                    <div className="bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full">
+                      <Sparkles size={16} className="inline-block mr-1 text-secondary" />
+                      <span className="text-xs font-medium">Featured</span>
+                    </div>
                   </div>
                 </div>
                 
-                <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
+                <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors relative">
+                  {project.title}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-500"></span>
+                </h3>
                 
                 <p className="text-muted-foreground mb-4 flex-grow">{project.description}</p>
                 
@@ -108,7 +118,7 @@ const ProjectsSection = () => {
                   {project.tags.map((tag) => (
                     <span 
                       key={tag} 
-                      className="text-xs bg-primary/20 text-primary-foreground px-3 py-1 rounded-full transition-all duration-300 group-hover:bg-primary/30"
+                      className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full transition-all duration-500 group-hover:bg-primary/20"
                     >
                       {tag}
                     </span>
@@ -118,7 +128,7 @@ const ProjectsSection = () => {
                 <div className="flex gap-4 mt-auto">
                   <a 
                     href={project.liveUrl} 
-                    className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
+                    className="flex items-center gap-2 text-sm hover:text-primary transition-all duration-300 group-hover:translate-x-1"
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
@@ -127,7 +137,7 @@ const ProjectsSection = () => {
                   </a>
                   <a 
                     href={project.githubUrl} 
-                    className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
+                    className="flex items-center gap-2 text-sm hover:text-primary transition-all duration-300 group-hover:translate-x-1"
                     target="_blank" 
                     rel="noopener noreferrer"
                   >

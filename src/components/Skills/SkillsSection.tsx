@@ -3,12 +3,13 @@ import { useEffect, useRef, useState } from "react";
 import { Code, Database, Terminal } from "lucide-react";
 import ScrollReveal from "../UI/ScrollReveal";
 import GlassCard from "../UI/GlassCard";
-import { Progress } from "../ui/progress";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
 
 type Skill = {
   name: string;
   icon: string;
   proficiency: number;
+  description?: string;
 };
 
 type SkillCategory = {
@@ -22,36 +23,59 @@ const skillCategories: SkillCategory[] = [
     title: "Frontend Development",
     icon: <Code className="h-6 w-6 text-primary" />,
     skills: [
-      { name: "React.js", icon: "react", proficiency: 90 },
-      { name: "TypeScript", icon: "typescript", proficiency: 85 },
-      { name: "Tailwind CSS", icon: "tailwindcss", proficiency: 95 },
-      { name: "Next.js", icon: "nextjs", proficiency: 80 },
-      { name: "HTML/CSS", icon: "html", proficiency: 95 },
+      { name: "React", icon: "react", proficiency: 90, description: "Building interactive UI components with React and React hooks" },
+      { name: "TypeScript", icon: "typescript", proficiency: 85, description: "Type-safe JavaScript development with TypeScript" },
+      { name: "Tailwind CSS", icon: "tailwindcss", proficiency: 95, description: "Utility-first CSS framework for rapid UI development" },
+      { name: "Next.js", icon: "nextjs", proficiency: 80, description: "React framework for production-ready applications" },
+      { name: "HTML/CSS", icon: "html", proficiency: 95, description: "Core web technologies for structure and styling" },
     ],
   },
   {
     title: "Backend Development",
     icon: <Database className="h-6 w-6 text-primary" />,
     skills: [
-      { name: "Node.js", icon: "nodejs", proficiency: 85 },
-      { name: "Express", icon: "express", proficiency: 80 },
-      { name: "MongoDB", icon: "mongodb", proficiency: 75 },
-      { name: "PostgreSQL", icon: "postgresql", proficiency: 70 },
-      { name: "GraphQL", icon: "graphql", proficiency: 65 },
+      { name: "Node.js", icon: "nodejs", proficiency: 85, description: "JavaScript runtime for server-side development" },
+      { name: "Express", icon: "express", proficiency: 80, description: "Minimal Node.js web application framework" },
+      { name: "MongoDB", icon: "mongodb", proficiency: 75, description: "NoSQL database for modern applications" },
+      { name: "PostgreSQL", icon: "postgresql", proficiency: 70, description: "Powerful, open-source object-relational database" },
+      { name: "GraphQL", icon: "graphql", proficiency: 65, description: "API query language and runtime for fulfilling queries" },
     ],
   },
   {
     title: "Development Tools",
     icon: <Terminal className="h-6 w-6 text-primary" />,
     skills: [
-      { name: "Git", icon: "git", proficiency: 90 },
-      { name: "Docker", icon: "docker", proficiency: 75 },
-      { name: "VS Code", icon: "vscode", proficiency: 95 },
-      { name: "GitHub", icon: "github", proficiency: 85 },
-      { name: "Figma", icon: "figma", proficiency: 80 },
+      { name: "Git", icon: "git", proficiency: 90, description: "Distributed version control system" },
+      { name: "Docker", icon: "docker", proficiency: 75, description: "Platform for developing, shipping, and running applications" },
+      { name: "VS Code", icon: "vscode", proficiency: 95, description: "Lightweight but powerful source code editor" },
+      { name: "GitHub", icon: "github", proficiency: 85, description: "Web-based platform for version control and collaboration" },
+      { name: "Figma", icon: "figma", proficiency: 80, description: "Collaborative interface design tool" },
     ],
   },
 ];
+
+// Helper function to get skill icon URL
+const getSkillIconUrl = (icon: string): string => {
+  const iconMap: Record<string, string> = {
+    react: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    typescript: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    tailwindcss: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg",
+    nextjs: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+    html: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+    nodejs: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    express: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    mongodb: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    postgresql: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+    graphql: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg",
+    git: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    docker: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+    vscode: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+    github: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+    figma: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+  };
+  
+  return iconMap[icon] || "https://via.placeholder.com/40";
+};
 
 const SkillsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -98,21 +122,44 @@ const SkillsSection = () => {
                   </div>
                   <h3 className="text-xl font-bold">{category.title}</h3>
                 </div>
-                <div className="space-y-6">
-                  {category.skills.map((skill, skillIndex) => (
-                    <div key={skill.name} className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span>{skill.name}</span>
-                        <span className="text-muted-foreground">{skill.proficiency}%</span>
-                      </div>
-                      <Progress 
-                        value={isVisible ? skill.proficiency : 0} 
-                        className="h-2 transition-all duration-1000 ease-out"
-                        style={{ 
-                          transitionDelay: `${(categoryIndex * 5 + skillIndex) * 100}ms`,
-                        }}
-                      />
-                    </div>
+                <div className="grid grid-cols-5 gap-4">
+                  {category.skills.map((skill) => (
+                    <HoverCard key={skill.name}>
+                      <HoverCardTrigger asChild>
+                        <div 
+                          className="flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-300 hover:bg-primary/10 cursor-pointer group"
+                        >
+                          <div className={`p-2 rounded-full bg-white/5 backdrop-blur-md mb-2 transition-all duration-500 ${isVisible ? 'animate-float' : ''}`}>
+                            <img 
+                              src={getSkillIconUrl(skill.icon)} 
+                              alt={skill.name}
+                              className={`w-10 h-10 object-contain transition-transform duration-300 group-hover:scale-110 ${skill.icon === 'nextjs' ? 'invert' : ''}`}
+                            />
+                          </div>
+                          <span className="text-xs text-center font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                            {skill.name}
+                          </span>
+                        </div>
+                      </HoverCardTrigger>
+                      <HoverCardContent className="w-60 p-4">
+                        <div className="flex justify-between items-center">
+                          <h4 className="font-semibold">{skill.name}</h4>
+                          <span className="text-primary font-bold">{skill.proficiency}%</span>
+                        </div>
+                        <div className="mt-2 h-1.5 w-full bg-muted/50 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-1000" 
+                            style={{ 
+                              width: isVisible ? `${skill.proficiency}%` : '0%',
+                              transitionDelay: `${categoryIndex * 100 + 100}ms`
+                            }}
+                          ></div>
+                        </div>
+                        {skill.description && (
+                          <p className="text-sm text-muted-foreground mt-2">{skill.description}</p>
+                        )}
+                      </HoverCardContent>
+                    </HoverCard>
                   ))}
                 </div>
               </GlassCard>

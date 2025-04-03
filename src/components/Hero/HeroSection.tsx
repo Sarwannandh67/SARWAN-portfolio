@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 const HeroSection = () => {
   const [titleComplete, setTitleComplete] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [animationComplete, setAnimationComplete] = useState(false);
 
   useEffect(() => {
     // Simulate loading
@@ -81,18 +82,29 @@ const HeroSection = () => {
           
           <div className="md:w-1/2 flex justify-center md:justify-end">
             <ScrollReveal delay={2000}>
-              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden">
+              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden animate-float">
                 <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-primary/30 to-secondary/30 rounded-full" style={{ animationDuration: '4s' }}></div>
                 <div className="absolute inset-2 rounded-full overflow-hidden glass border-2 border-white/20">
-                  {/* Replace static image with Lottie animation */}
                   <Player
                     autoplay
                     loop
-                    src="https://lottie.host/2e947f5b-119b-4b9a-8b5d-7ee168361537/eJBWCuHWGt.json"
+                    src="https://lottie.host/embed/2e947f5b-119b-4b9a-8b5d-7ee168361537/eJBWCuHWGt.json"
                     className="w-full h-full object-cover"
+                    onEvent={event => {
+                      if (event === 'complete') {
+                        setAnimationComplete(true);
+                      }
+                    }}
+                    background="transparent"
                   />
                 </div>
-                <div className="absolute inset-0 bg-gradient-radial from-transparent to-background/80 rounded-full"></div>
+                <div 
+                  className={cn(
+                    "absolute inset-0 bg-gradient-radial from-transparent to-background/80 rounded-full",
+                    animationComplete && "animate-pulse"
+                  )}
+                  style={{ animationDuration: '8s' }}
+                ></div>
               </div>
             </ScrollReveal>
           </div>
@@ -129,10 +141,10 @@ const HeroSection = () => {
       )}>
         <a 
           href="#projects" 
-          className="flex flex-col items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="flex flex-col items-center text-sm text-muted-foreground hover:text-foreground transition-colors group"
         >
           <span className="mb-2">Scroll Down</span>
-          <ArrowDown className="h-5 w-5 animate-bounce" />
+          <ArrowDown className="h-5 w-5 animate-bounce group-hover:text-primary transition-colors" />
         </a>
       </div>
     </section>
