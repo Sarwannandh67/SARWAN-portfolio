@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
-import { useEmblaCarousel } from "embla-carousel-react";
+import Embla from "embla-carousel-react";
 import ScrollReveal from "../UI/ScrollReveal";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -45,7 +45,7 @@ const TestimonialsSection = () => {
   const [scrollingUp, setScrollingUp] = useState(false);
   const [scrollingDown, setScrollingDown] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [emblaRef, emblaApi] = Embla({ loop: true });
   const [activeIndex, setActiveIndex] = useState(0);
   const autoplayRef = useRef<NodeJS.Timeout | null>(null);
   
