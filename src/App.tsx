@@ -1,4 +1,3 @@
-import { ToastProvider } from "@/components/UI/toast";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/UI/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -77,12 +76,10 @@ const App = () => (
     <QueryClientProvider client={queryClient}>
       <LoadingProvider>
         <TooltipProvider>
-          <ToastProvider>
-            <Toaster />
-            <Router>
-              <AnimatedRoutes />
-            </Router>
-          </ToastProvider>
+          <Toaster />
+          <Router>
+            <AnimatedRoutes />
+          </Router>
         </TooltipProvider>
       </LoadingProvider>
     </QueryClientProvider>
