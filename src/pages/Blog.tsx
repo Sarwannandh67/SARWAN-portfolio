@@ -1,124 +1,202 @@
-
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { useLoading } from "../contexts/LoadingContext";
 import Layout from "../components/Layout/Layout";
-import { Card, CardContent, CardFooter } from "../components/ui/card";
-import { Avatar } from "../components/ui/avatar";
-import { ScrollArea } from "../components/ui/scroll-area";
-import ScrollReveal from "../components/UI/ScrollReveal";
+import { Card } from "../components/UI/card";
+import { Avatar } from "../components/UI/avatar";
+import { ScrollArea } from "../components/UI/scroll-area";
+import EntranceAnimation from "../components/UI/EntranceAnimation";
+import { Input } from "../components/UI/input";
+import { Button } from "../components/UI/button";
+import { Code as SearchIcon } from "lucide-react";
 
 const blogPosts = [
   {
     id: 1,
-    title: "Creating Responsive Layouts with CSS Grid",
-    excerpt: "Learn how to build modern, responsive layouts using CSS Grid. This tutorial covers everything from basic grids to complex, asymmetrical designs.",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-    date: "April 15, 2023",
-    author: "Alex Morgan",
-    authorAvatar: "https://randomuser.me/api/portraits/men/32.jpg",
-    category: "CSS"
+    title: "Building Modern Web Applications",
+    excerpt: "Learn how to create stunning web applications using modern technologies and best practices. Discover the power of React, TypeScript, and modern CSS frameworks.",
+    image: "/images/blog/web-dev.jpg",
+    date: "2024-03-15",
+    author: "John Doe",
+    authorAvatar: "/images/avatars/john.jpg",
+    category: "Web Development",
+    readTime: "5 min read"
   },
   {
     id: 2,
-    title: "Understanding React Hooks",
-    excerpt: "Dive deep into React Hooks and learn how they can simplify your code. We'll cover useState, useEffect, useContext and more.",
-    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97",
-    date: "March 22, 2023",
-    author: "Jamie Chen",
-    authorAvatar: "https://randomuser.me/api/portraits/women/44.jpg",
-    category: "React"
+    title: "The Future of AI in Software Development",
+    excerpt: "Explore how artificial intelligence is transforming the way we write, test, and deploy software. From code generation to automated testing, AI is revolutionizing development.",
+    image: "/images/blog/ai-dev.jpg",
+    date: "2024-03-14",
+    author: "Jane Smith",
+    authorAvatar: "/images/avatars/jane.jpg",
+    category: "Artificial Intelligence",
+    readTime: "7 min read"
   },
   {
     id: 3,
-    title: "Building Accessible Web Forms",
-    excerpt: "Accessibility is crucial for modern web applications. Learn how to create forms that everyone can use, regardless of ability.",
-    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97",
-    date: "February 10, 2023",
-    author: "Taylor Smith",
-    authorAvatar: "https://randomuser.me/api/portraits/women/17.jpg",
-    category: "Accessibility"
+    title: "Mastering TypeScript",
+    excerpt: "Deep dive into TypeScript's advanced features and learn how to write more maintainable and scalable code. Tips and tricks from real-world projects.",
+    image: "/images/blog/typescript.jpg",
+    date: "2024-03-13",
+    author: "Mike Johnson",
+    authorAvatar: "/images/avatars/mike.jpg",
+    category: "TypeScript",
+    readTime: "6 min read"
   },
   {
     id: 4,
-    title: "Performance Optimization Techniques for Web Apps",
-    excerpt: "Discover how to make your web applications faster and more efficient with these proven optimization strategies.",
-    image: "https://images.unsplash.com/photo-1516387938699-a93567ec168e",
-    date: "January 5, 2023",
-    author: "Jordan Lee",
-    authorAvatar: "https://randomuser.me/api/portraits/men/55.jpg",
-    category: "Performance"
-  },
-  {
-    id: 5,
-    title: "Introduction to TypeScript for JavaScript Developers",
-    excerpt: "If you're comfortable with JavaScript, learn how TypeScript can help you write more robust, maintainable code.",
-    image: "https://images.unsplash.com/photo-1555099962-4199c345e5dd",
-    date: "December 12, 2022",
-    author: "Riley Johnson",
-    authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
-    category: "TypeScript"
-  },
+    title: "UI/UX Design Principles",
+    excerpt: "Learn the fundamental principles of creating beautiful and functional user interfaces. From color theory to responsive design, master the art of user experience.",
+    image: "/images/blog/ui-ux.jpg",
+    date: "2024-03-12",
+    author: "Sarah Wilson",
+    authorAvatar: "/images/avatars/sarah.jpg",
+    category: "Design",
+    readTime: "4 min read"
+  }
 ];
 
+const categories = ["All", "Web Development", "Artificial Intelligence", "TypeScript", "Design"];
+
 const Blog = () => {
+  const { showAdvancedLoading, hideLoading } = useLoading();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [visiblePosts, setVisiblePosts] = useState(6);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+  const filteredPosts = blogPosts.filter(post => {
+    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  const loadMore = useCallback(() => {
+    setIsLoadingMore(true);
+    setTimeout(() => {
+      setVisiblePosts(prev => prev + 3);
+      setIsLoadingMore(false);
+    }, 1000);
+  }, []);
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += 5;
+      if (progress <= 100) {
+        showAdvancedLoading("Loading blog posts...", progress);
+      } else {
+        clearInterval(interval);
+        hideLoading();
+      }
+    }, 100);
+
+    return () => {
+      clearInterval(interval);
+      hideLoading();
+    };
   }, []);
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-20">
-        <ScrollReveal className="mb-16" animation="fade-in" delay={100}>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">Blog</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl">
-            Insights, tutorials, and thoughts on web development, design, and technology.
-          </p>
-        </ScrollReveal>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {blogPosts.map((post, index) => (
-            <ScrollReveal 
-              key={post.id}
-              delay={100 + index * 100} 
-              className="h-full"
-              animation="fade-in"
-              threshold={0.1}
-            >
-              <Card className="glass-card overflow-hidden h-full flex flex-col">
-                <img 
-                  src={post.image} 
-                  alt={post.title} 
-                  className="w-full h-48 object-cover"
+      <EntranceAnimation type="fade" duration={0.5}>
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-12 py-10 bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 rounded-xl shadow-md border border-primary/10">
+            <div className="flex flex-col items-center md:items-start mb-6 md:mb-0">
+              <h1 className="text-3xl font-bold mb-2 text-primary">Blog</h1>
+              <p className="text-gray-600 text-sm">Explore our latest articles and insights</p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+              <div className="relative flex-1 md:w-64">
+                <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                <Input
+                  type="text"
+                  placeholder="Search posts..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10"
                 />
-                <CardContent className="p-6 flex-grow">
-                  <div className="flex items-center mb-4">
-                    <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
-                      {post.category}
-                    </span>
-                    <span className="ml-auto text-sm text-muted-foreground">
-                      {post.date}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">{post.title}</h3>
-                  <ScrollArea className="h-24">
-                    <p className="text-muted-foreground">{post.excerpt}</p>
-                  </ScrollArea>
-                </CardContent>
-                <CardFooter className="px-6 pb-6 pt-0">
-                  <div className="flex items-center w-full">
-                    <Avatar className="h-8 w-8">
-                      <img src={post.authorAvatar} alt={post.author} />
-                    </Avatar>
-                    <span className="ml-2 text-sm font-medium">{post.author}</span>
-                    <button className="ml-auto text-primary hover:underline">
-                      Read More
-                    </button>
-                  </div>
-                </CardFooter>
-              </Card>
-            </ScrollReveal>
-          ))}
+              </div>
+              <div className="flex flex-wrap gap-2 justify-center">
+                {categories.map((category) => (
+                  <Button
+                    key={category}
+                    variant={selectedCategory === category ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setSelectedCategory(category)}
+                  >
+                    {category}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <ScrollArea className="h-[calc(100vh-300px)]">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredPosts.slice(0, visiblePosts).map((post, index) => (
+                <EntranceAnimation
+                  key={post.id}
+                  type="slide-up"
+                  duration={0.5}
+                  delay={0.1 * index}
+                >
+                  <Card className="h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02] cursor-pointer">
+                    <div className="relative">
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="w-full h-48 object-cover rounded-t-lg"
+                      />
+                      <span className="absolute top-2 right-2 bg-primary/90 text-white px-3 py-1 rounded-full text-xs">
+                        {post.readTime}
+                      </span>
+                    </div>
+                    <div className="p-4">
+                      <div className="flex items-center mb-2">
+                        <Avatar
+                          src={post.authorAvatar}
+                          alt={post.author}
+                          className="w-8 h-8 mr-2"
+                        />
+                        <div>
+                          <p className="text-sm font-medium">{post.author}</p>
+                          <p className="text-xs text-gray-500">{post.date}</p>
+                        </div>
+                      </div>
+                      <h2 className="text-xl font-semibold mb-2 hover:text-primary transition-colors">
+                        {post.title}
+                      </h2>
+                      <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
+                      <div className="flex justify-between items-center">
+                        <span className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">
+                          {post.category}
+                        </span>
+                        <Button variant="ghost" size="sm">
+                          Read More
+                        </Button>
+                      </div>
+                    </div>
+                  </Card>
+                </EntranceAnimation>
+              ))}
+            </div>
+            
+            {visiblePosts < filteredPosts.length && (
+              <div className="flex justify-center mt-8">
+                <Button
+                  onClick={loadMore}
+                  disabled={isLoadingMore}
+                  className="w-40"
+                >
+                  {isLoadingMore ? "Loading..." : "Load More"}
+                </Button>
+              </div>
+            )}
+          </ScrollArea>
         </div>
-      </div>
+      </EntranceAnimation>
     </Layout>
   );
 };

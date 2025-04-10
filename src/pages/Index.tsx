@@ -1,44 +1,50 @@
-
 import { useEffect } from "react";
+import { useLoading } from "../contexts/LoadingContext";
 import Layout from "../components/Layout/Layout";
 import HeroSection from "../components/Hero/HeroSection";
 import ProjectsSection from "../components/Projects/ProjectsSection";
 import SkillsSection from "../components/Skills/SkillsSection";
 import AboutSection from "../components/About/AboutSection";
-import ContactSection from "../components/Contact/ContactSection";
-import TestimonialsSection from "../components/Testimonials/TestimonialsSection";
-import Footer from "../components/Layout/Footer";
+import EntranceAnimation from "../components/UI/EntranceAnimation";
 
 const Index = () => {
+  const { showAdvancedLoading, hideLoading } = useLoading();
+
   useEffect(() => {
-    // Preload Lottie and other assets
-    const preloadLottie = new Image();
-    preloadLottie.src = "https://lottie.host/embed/2e947f5b-119b-4b9a-8b5d-7ee168361537/eJBWCuHWGt.json";
-    
-    // Smooth scroll for better animation experience
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId) {
-          document.querySelector(targetId)?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += 10;
+      if (progress <= 100) {
+        showAdvancedLoading("Loading your experience...", progress);
+      } else {
+        clearInterval(interval);
+        hideLoading();
+      }
+    }, 150);
+
+    return () => {
+      clearInterval(interval);
+      hideLoading();
+    };
   }, []);
 
   return (
     <Layout>
-      <HeroSection />
-      <ProjectsSection />
-      <SkillsSection />
-      <TestimonialsSection />
-      <AboutSection />
-      <ContactSection />
-      <Footer />
+      <EntranceAnimation type="fade" duration={0.5}>
+        <HeroSection />
+      </EntranceAnimation>
+      
+      <EntranceAnimation type="slide-up" duration={0.7} delay={0.2}>
+        <SkillsSection />
+      </EntranceAnimation>
+      
+      <EntranceAnimation type="slide-up" duration={0.7} delay={0.3}>
+        <AboutSection />
+      </EntranceAnimation>
+      
+      <EntranceAnimation type="slide-up" duration={0.7} delay={0.4}>
+        <ProjectsSection />
+      </EntranceAnimation>
     </Layout>
   );
 };

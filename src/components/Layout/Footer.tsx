@@ -1,5 +1,5 @@
-
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -7,24 +7,46 @@ const Footer = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg">P</span>
+            <div className="flex flex-col space-y-4">
+              <div className="h-12 w-fit">
+                <img 
+                  src="/images/sarwan-logo.jpg" 
+                  alt="SARWAN - Born to Invent" 
+                  className="h-full w-auto object-contain rounded-sm"
+                  style={{
+                    filter: 'brightness(1.15) contrast(1.1)',
+                    mixBlendMode: 'screen'
+                  }}
+                />
               </div>
-              <span className="font-bold text-xl gradient-text">Portfolio</span>
+              <p className="text-muted-foreground max-w-xs">
+                Crafting innovative solutions through code and design, born to invent the future of web development.
+              </p>
             </div>
-            <p className="text-muted-foreground max-w-xs">
-              Showcasing my skills and projects in web development and design.
-            </p>
           </div>
           
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4">Navigation</h3>
             <ul className="space-y-2">
-              {["Home", "Projects", "Skills", "About", "Contact"].map((item) => (
+              <li>
+                <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Contact
+                </Link>
+              </li>
+              {["Projects", "Skills", "About"].map((item) => (
                 <li key={item}>
                   <a 
-                    href={`#${item.toLowerCase()}`}
+                    href={`/#${item.toLowerCase()}`}
                     className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {item}
@@ -35,22 +57,34 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="text-lg font-semibold mb-4">Legal</h3>
+            <h3 className="text-lg font-semibold mb-4">Connect</h3>
             <ul className="space-y-2">
               <li>
                 <a 
-                  href="#" 
+                  href="https://github.com/yourusername" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Privacy Policy
+                  GitHub
                 </a>
               </li>
               <li>
                 <a 
-                  href="#" 
+                  href="https://linkedin.com/in/yourusername" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Terms & Conditions
+                  LinkedIn
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="mailto:your.email@example.com"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Email
                 </a>
               </li>
             </ul>
@@ -59,7 +93,7 @@ const Footer = () => {
         
         <div className="border-t border-border/20 pt-8 text-center">
           <p className="text-muted-foreground">
-            &copy; {new Date().getFullYear()} Portfolio. All rights reserved.
+            &copy; {new Date().getFullYear()} SARWAN. All rights reserved.
           </p>
         </div>
       </div>

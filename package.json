@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "build:dev": "vite build --mode development",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "download-animation": "node scripts/download-animation.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -48,8 +49,9 @@
     "embla-carousel-react": "^8.3.0",
     "framer-motion": "^12.6.3",
     "input-otp": "^1.2.4",
-    "lucide-react": "^0.462.0",
+    "lucide-react": "^0.487.0",
     "next-themes": "^0.3.0",
+    "node-fetch": "^3.3.2",
     "react": "^18.3.1",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18.3.1",

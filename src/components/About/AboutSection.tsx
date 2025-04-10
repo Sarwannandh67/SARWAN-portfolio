@@ -1,4 +1,3 @@
-
 import ScrollReveal from "../UI/ScrollReveal";
 import GlassCard from "../UI/GlassCard";
 import { Code, Monitor, Server } from "lucide-react";
@@ -55,13 +54,13 @@ const AboutSection = () => {
                 <h3 className="text-2xl font-bold mb-4">My Journey</h3>
                 <div className="space-y-4 text-muted-foreground">
                   <p>
-                    I'm a passionate full-stack developer with over 5 years of experience in creating digital solutions for various industries. My journey in software development began with a curiosity for how things work on the web.
+                  Hello! I'm Sarwan, a BTech student specializing in Computer Science and Engineering with a focus on Artificial Intelligence and Machine Learning at SRM University, Kattankulathur, Chennai.
                   </p>
                   <p>
-                    I specialize in building robust and scalable web applications using modern technologies. My approach combines technical expertise with a strong focus on user experience and business needs.
+                  I'm passionate about leveraging technology to solve real-world problems and create impactful digital solutions. My journey in tech began with a curiosity for how things work, which has since evolved into a deep interest in coding, designing, and developing intelligent systems.
                   </p>
                   <p>
-                    When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing knowledge through writing and mentoring.
+                  When I'm not immersed in coding or experimenting with new tools, you'll find me brainstorming creative ideas, exploring innovative technologies, or simply enjoying a good book or a cup of coffee ☕.
                   </p>
                 </div>
               </div>

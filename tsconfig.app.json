@@ -26,5 +26,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "src/types/declarations.d.ts", "src/types/about-declarations.d.ts", "src/types/global-declarations.d.ts", "src/types/glass-card.d.ts"]
 }

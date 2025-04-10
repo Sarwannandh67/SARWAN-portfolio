@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -92,10 +91,10 @@ export default {
         },
         "glow": {
           "0%, 100%": { 
-            boxShadow: "0 0 5px rgba(156, 39, 176, 0.2), 0 0 20px rgba(156, 39, 176, 0.2)", 
+            boxShadow: "0 0 5px hsla(var(--primary), 0.2), 0 0 20px hsla(var(--primary), 0.2)", 
           },
           "50%": { 
-            boxShadow: "0 0 10px rgba(156, 39, 176, 0.5), 0 0 25px rgba(156, 39, 176, 0.3)", 
+            boxShadow: "0 0 10px hsla(var(--primary), 0.5), 0 0 25px hsla(var(--primary), 0.3)", 
           },
         },
         "slide-up": {

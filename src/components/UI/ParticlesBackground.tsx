@@ -1,14 +1,14 @@
-
 import { useCallback } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles"; // Using loadFull instead of loadSlim
+import { Engine } from "tsparticles-engine";
 
 interface ParticlesBackgroundProps {
   className?: string;
 }
 
 const ParticlesBackground = ({ className }: ParticlesBackgroundProps) => {
-  const particlesInit = useCallback(async (engine: any) => {
+  const particlesInit = useCallback(async (engine: Engine) => {
     // This will load the full tsParticles package
     await loadFull(engine);
   }, []);
@@ -41,7 +41,7 @@ const ParticlesBackground = ({ className }: ParticlesBackgroundProps) => {
               default: "bounce",
             },
             random: false,
-            speed: 1,
+            speed: 0.8,
             straight: false,
             attract: {
               enable: true,
@@ -52,9 +52,9 @@ const ParticlesBackground = ({ className }: ParticlesBackgroundProps) => {
           number: {
             density: {
               enable: true,
-              area: 800,
+              area: 1000,
             },
-            value: 80,
+            value: 50,
           },
           opacity: {
             value: 0.4,
@@ -64,7 +64,7 @@ const ParticlesBackground = ({ className }: ParticlesBackgroundProps) => {
             type: "circle",
           },
           size: {
-            value: { min: 1, max: 5 },
+            value: { min: 1, max: 4 },
             random: true,
           },
         },

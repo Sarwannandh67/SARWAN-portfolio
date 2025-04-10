@@ -1,11 +1,12 @@
-
-import { HTMLAttributes, ReactNode } from "react";
+import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-interface GlassCardProps extends HTMLAttributes<HTMLDivElement> {
+interface GlassCardProps {
   children: ReactNode;
   hoverEffect?: boolean;
   glowEffect?: boolean;
+  className?: string;
+  [key: string]: any; // Allow any other props
 }
 
 const GlassCard = ({ 

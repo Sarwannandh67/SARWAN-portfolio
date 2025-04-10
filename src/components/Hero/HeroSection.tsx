@@ -1,16 +1,18 @@
-
 import { useEffect, useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import ScrollReveal from "../UI/ScrollReveal";
 import ParticlesBackground from "../UI/ParticlesBackground";
 import { ArrowDown, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "../ui/button";
+import { Button } from "../UI/button";
+import GlassCard from "../UI/GlassCard";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   const [titleComplete, setTitleComplete] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [animationComplete, setAnimationComplete] = useState(false);
+  const [pathLength, setPathLength] = useState(0);
 
   useEffect(() => {
     // Simulate loading
@@ -30,122 +32,87 @@ const HeroSection = () => {
     }
   }, [isLoaded]);
 
-  const title = "Creating Digital Experiences";
-  const titleWords = title.split(" ");
+  useEffect(() => {
+    if (isLoaded) {
+      const interval = setInterval(() => {
+        setPathLength((prev) => {
+          if (prev >= 1) {
+            clearInterval(interval);
+            return 1;
+          }
+          return prev + 0.02;
+        });
+      }, 20);
+
+      return () => clearInterval(interval);
+    }
+  }, [isLoaded]);
+
+  const name = "Sarwan Nandh";
 
   return (
-    <section 
-      id="hero" 
-      className="min-h-screen flex flex-col justify-center items-center relative px-4 py-20 overflow-hidden"
-    >
-      {/* Particles Background */}
-      <ParticlesBackground className="absolute inset-0 -z-10" />
-      
-      <div className="container max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
-          <div className="md:w-1/2 text-center md:text-left">
-            {isLoaded && (
-              <div className="inline-block relative">
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                  {titleWords.map((word, index) => (
-                    <span 
-                      key={index}
-                      className={cn(
-                        "inline-block mr-4 transition-all duration-700 transform opacity-0 translate-y-10",
-                        isLoaded && `animate-[fade-in_0.7s_ease-out_${index * 0.3}s_forwards,slide-up_0.7s_ease-out_${index * 0.3}s_forwards]`
-                      )}
-                    >
-                      {index === 0 ? (
-                        <span className="gradient-text">{word}</span>
-                      ) : (
-                        word
-                      )}
-                    </span>
-                  ))}
-                </h1>
-              </div>
-            )}
-
-            <h2 className={cn(
-              "text-2xl md:text-3xl font-bold mb-6 transition-all duration-700 transform opacity-0 translate-y-10",
-              isLoaded && "animate-[fade-in_0.7s_ease-out_1.2s_forwards,slide-up_0.7s_ease-out_1.2s_forwards]"
-            )}>
-              <span className="text-secondary">Full Stack Developer</span> & UI Designer
-            </h2>
-
-            <ScrollReveal delay={2800}>
-              <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto md:mx-0">
-                I'm a full-stack developer passionate about crafting beautiful, functional, and user-centered digital experiences.
+    <section className="min-h-screen pt-20 px-4 flex flex-col justify-between relative">
+      <div className="container mx-auto max-w-6xl flex-1 flex flex-col">
+        <div className="flex flex-col md:flex-row items-center gap-8 flex-1">
+          <div className="md:w-1/2">
+            <ScrollReveal>
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                I'm <span className="gradient-text">Sarwan Nandh</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-muted-foreground mb-8">
+                A passionate Full Stack Developer specializing in building modern web applications
+                with cutting-edge technologies.
               </p>
+              <div className="flex justify-start">
+                <Button
+                  asChild
+                  className="group relative overflow-hidden bg-gradient-to-br from-primary via-secondary to-accent text-primary-foreground px-10 py-7 rounded-2xl transition-all duration-700 hover:scale-105 hover:rotate-1"
+                >
+                  <Link to="/contact" className="inline-flex items-center gap-2">
+                    <div className="relative z-10 flex items-center gap-3">
+                      <div className="relative overflow-hidden">
+                        <span className="inline-block font-medium text-lg group-hover:translate-y-[-150%] transition-transform duration-500 ease-in-out">Say Hi</span>
+                        <span className="inline-block font-medium text-lg absolute top-[150%] left-0 group-hover:translate-y-[-150%] transition-transform duration-500 ease-in-out">Let's Chat</span>
+                      </div>
+                      <span className="animate-wave text-2xl group-hover:scale-125 transition-transform duration-500">👋</span>
+                    </div>
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(var(--primary),0.3),transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-white/[0.12] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                    <div className="absolute -inset-px bg-gradient-to-r from-primary/50 via-secondary/50 to-accent/50 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-700 -z-10 group-hover:scale-110" />
+                  </Link>
+                </Button>
+              </div>
             </ScrollReveal>
           </div>
           
-          <div className="md:w-1/2 flex justify-center md:justify-end">
-            <ScrollReveal delay={2000}>
-              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden animate-float">
-                <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-primary/30 to-secondary/30 rounded-full" style={{ animationDuration: '4s' }}></div>
-                <div className="absolute inset-2 rounded-full overflow-hidden glass border-2 border-white/20">
-                  <Player
-                    autoplay
-                    loop
-                    src="https://lottie.host/embed/2e947f5b-119b-4b9a-8b5d-7ee168361537/eJBWCuHWGt.json"
-                    className="w-full h-full object-cover"
-                    onEvent={event => {
-                      if (event === 'complete') {
-                        setAnimationComplete(true);
-                      }
-                    }}
-                    background="transparent"
-                  />
-                </div>
-                <div 
-                  className={cn(
-                    "absolute inset-0 bg-gradient-radial from-transparent to-background/80 rounded-full",
-                    animationComplete && "animate-pulse"
-                  )}
-                  style={{ animationDuration: '8s' }}
-                ></div>
-              </div>
+          <div className="md:w-1/2">
+            <ScrollReveal delay={200}>
+              <GlassCard className="p-4">
+                <Player
+                  autoplay
+                  loop
+                  src="https://assets9.lottiefiles.com/packages/lf20_w51pcehl.json"
+                  className="w-full h-[400px]"
+                  background="transparent"
+                />
+              </GlassCard>
             </ScrollReveal>
           </div>
         </div>
-
-        <ScrollReveal delay={3200}>
-          <div className="flex flex-wrap justify-center md:justify-start gap-4 mt-8">
+        
+        <ScrollReveal delay={400}>
+          <div className="flex justify-center mb-8">
             <a 
-              href="#projects"
-              className="bg-primary hover:bg-primary/80 text-primary-foreground rounded-full px-8 py-3 font-medium transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
+              href="#about" 
+              className="group flex flex-col items-center gap-2 p-2 text-muted-foreground hover:text-primary transition-colors"
             >
-              View My Work
+              <span className="text-sm font-medium">Scroll Down</span>
+              <div className="p-2 rounded-full bg-muted/50 group-hover:bg-primary/20 transition-colors">
+                <ArrowDown className="h-5 w-5 group-hover:text-primary animate-bounce" />
+              </div>
             </a>
-            <a 
-              href="#contact"
-              className="bg-transparent border border-primary text-primary hover:bg-primary/10 rounded-full px-8 py-3 font-medium transition-all hover:scale-105"
-            >
-              Get in Touch
-            </a>
-            <Button 
-              variant="outline"
-              className="rounded-full border-secondary text-secondary hover:bg-secondary/10 flex items-center gap-2 hover:scale-105 transition-transform"
-              onClick={() => window.open("/resume.pdf", "_blank")}
-            >
-              Download Resume <Download className="h-4 w-4" />
-            </Button>
           </div>
         </ScrollReveal>
-      </div>
-
-      <div className={cn(
-        "absolute bottom-10 left-1/2 -translate-x-1/2 transition-all duration-1000",
-        titleComplete ? "opacity-100" : "opacity-0"
-      )}>
-        <a 
-          href="#projects" 
-          className="flex flex-col items-center text-sm text-muted-foreground hover:text-foreground transition-colors group"
-        >
-          <span className="mb-2">Scroll Down</span>
-          <ArrowDown className="h-5 w-5 animate-bounce group-hover:text-primary transition-colors" />
-        </a>
       </div>
     </section>
   );
