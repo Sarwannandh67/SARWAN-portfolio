@@ -10,6 +10,7 @@ import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
 import NotFound from "@/pages/NotFound";
 import { useState, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
 
 // Create a client with better error handling
 const queryClient = new QueryClient({
@@ -61,14 +62,16 @@ const AnimatedRoutes = () => {
   const location = useLocation();
   
   return (
-    <PageTransition key={location.pathname}>
-      <Routes location={location}>
-        <Route path="/" element={<Index />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </PageTransition>
+    <AnimatePresence mode="wait">
+      <PageTransition key={location.pathname}>
+        <Routes location={location}>
+          <Route path="/" element={<Index />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </PageTransition>
+    </AnimatePresence>
   );
 };
 
