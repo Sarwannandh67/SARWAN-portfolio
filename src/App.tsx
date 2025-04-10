@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { LoadingProvider } from "@/contexts/LoadingContext";
 import PageTransition from "@/components/ui/PageTransition";
-import VantaBackground from "@/components/ui/VantaBackground";
+import VantaBackground from "@/components/ui/VantaBackground.tsx";
 import Index from "@/pages/Index";
 import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
