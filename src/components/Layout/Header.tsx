@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Download } from "lucide-react";
-import { Button } from "../UI/button";
+import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
 
 const Header = () => {

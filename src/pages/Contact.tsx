@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { useLoading } from "../contexts/LoadingContext";
 import Layout from "../components/Layout/Layout";
 import { Mail, Code } from "lucide-react";
-import ScrollReveal from "../components/UI/ScrollReveal";
-import GlassCard from "../components/UI/GlassCard";
+import ScrollReveal from "../components/ui/ScrollReveal";
+import GlassCard from "../components/ui/GlassCard";
 import { toast } from "@/hooks/use-toast";
-import EntranceAnimation from "../components/UI/EntranceAnimation";
+import EntranceAnimation from "../components/ui/EntranceAnimation";
 
 type FormState = {
   name: string;

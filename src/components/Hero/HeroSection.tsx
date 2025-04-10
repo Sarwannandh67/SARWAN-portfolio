@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
-import ScrollReveal from "../UI/ScrollReveal";
-import ParticlesBackground from "../UI/ParticlesBackground";
+import ScrollReveal from "../ui/ScrollReveal";
+import ParticlesBackground from "../ui/ParticlesBackground";
 import { ArrowDown, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "../UI/button";
-import GlassCard from "../UI/GlassCard";
+import { Button } from "../ui/button";
+import GlassCard from "../ui/GlassCard";
 import { Link } from "react-router-dom";
 
 const HeroSection = () => {

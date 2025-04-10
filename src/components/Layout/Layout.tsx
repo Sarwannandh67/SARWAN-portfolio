@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import FloatingNav from "../Navigation/FloatingNav";
-import VantaBackground from "../UI/VantaBackground";
+import VantaBackground from "../ui/VantaBackground";
 import { useLocation } from "react-router-dom";
 
 interface LayoutProps {

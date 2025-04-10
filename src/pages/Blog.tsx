@@ -1,12 +1,12 @@
 import { useEffect, useState, useCallback } from "react";
 import { useLoading } from "../contexts/LoadingContext";
 import Layout from "../components/Layout/Layout";
-import { Card } from "../components/UI/card";
-import { Avatar } from "../components/UI/avatar";
-import { ScrollArea } from "../components/UI/scroll-area";
-import EntranceAnimation from "../components/UI/EntranceAnimation";
-import { Input } from "../components/UI/input";
-import { Button } from "../components/UI/button";
+import { Card } from "../components/ui/card";
+import { Avatar } from "../components/ui/avatar";
+import { ScrollArea } from "../components/ui/scroll-area";
+import EntranceAnimation from "../components/ui/EntranceAnimation";
+import { Input } from "../components/ui/input";
+import { Button } from "../components/ui/button";
 import { Code as SearchIcon } from "lucide-react";
 
 const blogPosts = [

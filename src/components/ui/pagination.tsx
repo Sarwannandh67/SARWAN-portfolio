@@ -1,10 +1,20 @@
 import * as React from "react"
-import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { ButtonProps, buttonVariants } from "@/components/UI/button"
+import { buttonVariants } from "@/components/ui/button"
 
-const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
+// Define ButtonProps type locally since it's not exported from button component
+type ButtonProps = {
+  size?: "default" | "sm" | "lg" | "icon"
+  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"
+}
+
+interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
+  className?: string
+}
+
+const Pagination = ({ className, ...props }: PaginationProps) => (
   <nav
     role="navigation"
     aria-label="pagination"
@@ -14,30 +24,36 @@ const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
 )
 Pagination.displayName = "Pagination"
 
-const PaginationContent = React.forwardRef<
-  HTMLUListElement,
-  React.ComponentProps<"ul">
->(({ className, ...props }, ref) => (
-  <ul
-    ref={ref}
-    className={cn("flex flex-row items-center gap-1", className)}
-    {...props}
-  />
-))
+interface PaginationContentProps extends React.HTMLAttributes<HTMLUListElement> {
+  className?: string
+}
+
+const PaginationContent = React.forwardRef<HTMLUListElement, PaginationContentProps>(
+  ({ className, ...props }, ref) => (
+    <ul
+      ref={ref}
+      className={cn("flex flex-row items-center gap-1", className)}
+      {...props}
+    />
+  )
+)
 PaginationContent.displayName = "PaginationContent"
 
-const PaginationItem = React.forwardRef<
-  HTMLLIElement,
-  React.ComponentProps<"li">
->(({ className, ...props }, ref) => (
-  <li ref={ref} className={cn("", className)} {...props} />
-))
+interface PaginationItemProps extends React.HTMLAttributes<HTMLLIElement> {
+  className?: string
+}
+
+const PaginationItem = React.forwardRef<HTMLLIElement, PaginationItemProps>(
+  ({ className, ...props }, ref) => (
+    <li ref={ref} className={cn("", className)} {...props} />
+  )
+)
 PaginationItem.displayName = "PaginationItem"
 
-type PaginationLinkProps = {
+interface PaginationLinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
   isActive?: boolean
-} & Pick<ButtonProps, "size"> &
-  React.ComponentProps<"a">
+  size?: ButtonProps["size"]
+}
 
 const PaginationLink = ({
   className,
@@ -59,10 +75,11 @@ const PaginationLink = ({
 )
 PaginationLink.displayName = "PaginationLink"
 
-const PaginationPrevious = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
+interface PaginationPreviousProps extends PaginationLinkProps {
+  className?: string
+}
+
+const PaginationPrevious = ({ className, ...props }: PaginationPreviousProps) => (
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
@@ -75,10 +92,11 @@ const PaginationPrevious = ({
 )
 PaginationPrevious.displayName = "PaginationPrevious"
 
-const PaginationNext = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
+interface PaginationNextProps extends PaginationLinkProps {
+  className?: string
+}
+
+const PaginationNext = ({ className, ...props }: PaginationNextProps) => (
   <PaginationLink
     aria-label="Go to next page"
     size="default"
@@ -91,16 +109,17 @@ const PaginationNext = ({
 )
 PaginationNext.displayName = "PaginationNext"
 
-const PaginationEllipsis = ({
-  className,
-  ...props
-}: React.ComponentProps<"span">) => (
+interface PaginationEllipsisProps extends React.HTMLAttributes<HTMLSpanElement> {}
+
+const PaginationEllipsis = ({ className, ...props }: PaginationEllipsisProps) => (
   <span
     aria-hidden
     className={cn("flex h-9 w-9 items-center justify-center", className)}
     {...props}
   >
-    <MoreHorizontal className="h-4 w-4" />
+    <div className="h-4 w-4 flex items-center justify-center">
+      <span>...</span>
+    </div>
     <span className="sr-only">More pages</span>
   </span>
 )

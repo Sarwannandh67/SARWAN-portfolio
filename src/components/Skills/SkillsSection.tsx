@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { Code, Terminal } from "lucide-react";
-import ScrollReveal from "../UI/ScrollReveal";
-import GlassCard from "../UI/GlassCard";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "../UI/hover-card";
+import ScrollReveal from "../ui/ScrollReveal";
+import GlassCard from "../ui/GlassCard";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
 import EducationTimeline from "./EducationTimeline";
 
 type Skill = {

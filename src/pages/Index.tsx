@@ -5,7 +5,7 @@ import HeroSection from "../components/Hero/HeroSection";
 import ProjectsSection from "../components/Projects/ProjectsSection";
 import SkillsSection from "../components/Skills/SkillsSection";
 import AboutSection from "../components/About/AboutSection";
-import EntranceAnimation from "../components/UI/EntranceAnimation";
+import EntranceAnimation from "../components/ui/EntranceAnimation";
 
 const Index = () => {
   const { showAdvancedLoading, hideLoading } = useLoading();

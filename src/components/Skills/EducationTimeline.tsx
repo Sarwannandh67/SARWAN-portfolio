@@ -1,6 +1,6 @@
 import { BookOpen, Code2, Monitor } from "lucide-react";
-import ScrollReveal from "../UI/ScrollReveal";
-import GlassCard from "../UI/GlassCard";
+import ScrollReveal from "../ui/ScrollReveal";
+import GlassCard from "../ui/GlassCard";
 
 type EducationItem = {
   year: string;

@@ -1,5 +1,5 @@
-import ScrollReveal from "../UI/ScrollReveal";
-import GlassCard from "../UI/GlassCard";
+import ScrollReveal from "../ui/ScrollReveal";
+import GlassCard from "../ui/GlassCard";
 import { Code, Monitor, Server } from "lucide-react";
 
 const skills = [

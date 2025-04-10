@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../contexts/LoadingContext";
 import Layout from "../components/Layout/Layout";
-import { Button } from "../components/UI/button";
-import EntranceAnimation from "../components/UI/EntranceAnimation";
+import { Button } from "../components/ui/button";
+import EntranceAnimation from "../components/ui/EntranceAnimation";
 
 const NotFound = () => {
   const navigate = useNavigate();

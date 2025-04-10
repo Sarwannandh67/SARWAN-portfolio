@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ScrollReveal from "../UI/ScrollReveal";
-import GlassCard from "../UI/GlassCard";
+import ScrollReveal from "../ui/ScrollReveal";
+import GlassCard from "../ui/GlassCard";
 import { Github, ArrowUpRight, ExternalLink } from "lucide-react";
 
 // Project data
