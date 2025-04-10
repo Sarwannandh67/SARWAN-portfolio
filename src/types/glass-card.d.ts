@@ -1,6 +1,6 @@
 // This file contains type declarations for the GlassCard component
 
-declare module "@/components/UI/GlassCard" {
+declare module "@/components/ui/GlassCard" {
   import { ReactNode } from "react";
   
   interface GlassCardProps {
