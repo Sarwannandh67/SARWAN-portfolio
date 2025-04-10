@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import LoadingPage from "../components/ui/LoadingPage";
-import AdvancedLoadingPage from "../components/ui/AdvancedLoadingPage";
+import LoadingPage from "@/components/ui/LoadingPage";
+import AdvancedLoadingPage from "@/components/ui/AdvancedLoadingPage";
 
 interface LoadingContextType {
   isLoading: boolean;
@@ -18,7 +18,7 @@ export const LoadingProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isAdvancedLoading, setIsAdvancedLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("Loading...");
-  const [loadingProgress, setLoadingProgress] = useState<number>();
+const [loadingProgress, setLoadingProgress] = useState<number | undefined>(undefined);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
   // Cleanup function
@@ -111,4 +111,4 @@ export const useLoading = () => {
     throw new Error("useLoading must be used within a LoadingProvider");
   }
   return context;
-}; 
+};
