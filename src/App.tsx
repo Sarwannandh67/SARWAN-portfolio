@@ -1,5 +1,5 @@
 import { ToastProvider } from "@/components/UI/toast";
-import { Toaster as Sonner } from "@/components/UI/sonner";
+import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/UI/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
@@ -78,7 +78,7 @@ const App = () => (
       <LoadingProvider>
         <TooltipProvider>
           <ToastProvider>
-            <Sonner />
+            <Toaster />
             <Router>
               <AnimatedRoutes />
             </Router>
