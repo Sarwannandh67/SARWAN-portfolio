@@ -1,1 +1,1 @@
-export { default } from '../VantaBackground';
+export { default } from '../VantaBackground.tsx';

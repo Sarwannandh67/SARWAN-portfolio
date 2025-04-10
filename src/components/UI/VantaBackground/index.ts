@@ -1,2 +1,2 @@
-import VantaBackground from '../VantaBackground';
+import VantaBackground from '../VantaBackground.tsx';
 export default VantaBackground;
