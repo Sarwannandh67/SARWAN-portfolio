@@ -1,4 +1,4 @@
-import { Toaster } from "@/components/UI/toaster";
+import { ToastProvider } from "@/components/UI/toast";
 import { Toaster as Sonner } from "@/components/UI/sonner";
 import { TooltipProvider } from "@/components/UI/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -77,11 +77,12 @@ const App = () => (
     <QueryClientProvider client={queryClient}>
       <LoadingProvider>
         <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <Router>
-            <AnimatedRoutes />
-          </Router>
+          <ToastProvider>
+            <Sonner />
+            <Router>
+              <AnimatedRoutes />
+            </Router>
+          </ToastProvider>
         </TooltipProvider>
       </LoadingProvider>
     </QueryClientProvider>
