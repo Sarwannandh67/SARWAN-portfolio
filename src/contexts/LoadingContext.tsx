@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import LoadingPage from "../components/ui/LoadingPage.tsx";
+import LoadingPage from "../components/ui/LoadingPage";
 import AdvancedLoadingPage from "../components/ui/AdvancedLoadingPage";
 
 interface LoadingContextType {
