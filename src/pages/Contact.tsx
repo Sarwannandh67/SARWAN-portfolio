@@ -6,6 +6,7 @@ import ScrollReveal from "../components/ui/ScrollReveal";
 import GlassCard from "../components/ui/GlassCard";
 import { toast } from "@/hooks/use-toast";
 import EntranceAnimation from "../components/ui/EntranceAnimation";
+import emailjs from '@emailjs/browser';
 
 type FormState = {
   name: string;
@@ -49,12 +50,27 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Replace these with your actual EmailJS credentials
+      const serviceId = 'service_da97n3j';
+      const templateId = 'template_7buq0rs';
+      const publicKey = 'QosEMiDb1zcorgz5K';
+
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+        },
+        publicKey
+      );
+
       toast({
         title: "Message sent!",
         description: "Thanks for reaching out. I'll get back to you soon.",
@@ -65,9 +81,16 @@ const Contact = () => {
         email: "",
         message: ""
       });
-      
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast({
+        title: "Error",
+        description: "There was a problem sending your message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   return (
