@@ -6,7 +6,7 @@ import ScrollReveal from "../components/ui/ScrollReveal";
 import GlassCard from "../components/ui/GlassCard";
 import { toast } from "@/hooks/use-toast";
 import EntranceAnimation from "../components/ui/EntranceAnimation";
-import emailjs from '@emailjs/browser';
+import { Resend } from 'resend';
 
 type FormState = {
   name: string;
@@ -55,21 +55,20 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // Replace these with your actual EmailJS credentials
-      const serviceId = 'service_da97n3j';
-      const templateId = 'template_7buq0rs';
-      const publicKey = 'QosEMiDb1zcorgz5K';
+      const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          message: formData.message,
-        },
-        publicKey
-      );
+      await resend.emails.send({
+        from: 'Portfolio Contact <onboarding@resend.dev>',
+        to: 'your-email@example.com', // Replace with your email
+        subject: `New Contact Form Submission from ${formData.name}`,
+        html: `
+          <h2>New Contact Form Submission</h2>
+          <p><strong>Name:</strong> ${formData.name}</p>
+          <p><strong>Email:</strong> ${formData.email}</p>
+          <p><strong>Message:</strong></p>
+          <p>${formData.message}</p>
+        `
+      });
 
       toast({
         title: "Message sent!",
