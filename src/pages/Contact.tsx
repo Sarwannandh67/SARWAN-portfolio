@@ -77,6 +77,9 @@ const Contact = () => {
       console.log('Response data:', data);
 
       if (!response.ok) {
+        if (data.errorMessage?.includes('Missing Resend API key')) {
+          throw new Error('Service temporarily unavailable. Please try again later or contact me directly at sarwannandhofficial672007@gmail.com');
+        }
         throw new Error(data.error || 'Failed to send message');
       }
       
