@@ -87,9 +87,9 @@ This project is open source and available under the MIT License.
 ## 🤝 Contact
 
 - Portfolio - [Your Portfolio URL]
-- GitHub - [@yourusername](https://github.com/yourusername)
-- LinkedIn - [Your LinkedIn](https://linkedin.com/in/yourusername)
+- GitHub - [@yourusername](https://github.com/sarwannandh67)
+- LinkedIn - [Your LinkedIn](https://linkedin.com/in/sarwannandh)
 
 ---
 
-Made with ❤️ by SARWAN
+Made with ❤️ by SARWAN NANDH
