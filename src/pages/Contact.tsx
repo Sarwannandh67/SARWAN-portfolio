@@ -6,7 +6,6 @@ import ScrollReveal from "../components/ui/ScrollReveal";
 import GlassCard from "../components/ui/GlassCard";
 import { toast } from "@/hooks/use-toast";
 import EntranceAnimation from "../components/ui/EntranceAnimation";
-import { Resend } from 'resend';
 
 type FormState = {
   name: string;
@@ -55,41 +54,25 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
-
-      // Send notification email to admin
-      await resend.emails.send({
-        from: 'Portfolio Contact <onboarding@resend.dev>',
-        to: 'sarwannandhofficial672007@gmail.com', // Replace with your email
-        subject: `New Contact Form Submission from ${formData.name}`,
-        html: `
-          <h2>New Contact Form Submission</h2>
-          <p><strong>Name:</strong> ${formData.name}</p>
-          <p><strong>Email:</strong> ${formData.email}</p>
-          <p><strong>Message:</strong></p>
-          <p>${formData.message}</p>
-        `
+      console.log('Starting email send process...');
+      
+      const response = await fetch('/api/email.ts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
 
-      // Send auto-response to the customer
-      await resend.emails.send({
-        from: 'Portfolio Contact <onboarding@resend.dev>',
-        to: formData.email,
-        subject: 'Thank you for your message',
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2>Thank you for reaching out!</h2>
-            <p>Dear ${formData.name},</p>
-            <p>Thank you for contacting me. I have received your message and will get back to you as soon as possible.</p>
-            <p>Here's a copy of your message:</p>
-            <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
-              ${formData.message}
-            </div>
-            <p>Best regards,</p>
-            <p>Sarwan Nandh</p>
-          </div>
-        `
-      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send email');
+      }
+
+      const data = await response.json();
+      if (!data.success) {
+        throw new Error('Failed to send email');
+      }
 
       toast({
         title: "Message sent!",
@@ -102,10 +85,10 @@ const Contact = () => {
         message: ""
       });
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Detailed error:', error);
       toast({
         title: "Error",
-        description: "There was a problem sending your message. Please try again later.",
+        description: error instanceof Error ? error.message : "There was a problem sending your message. Please try again later.",
         variant: "destructive",
       });
     } finally {
