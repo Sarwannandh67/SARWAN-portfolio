@@ -22,6 +22,9 @@ const Contact = () => {
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     let progress = 0;
@@ -51,48 +54,40 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    
+    setIsLoading(true);
+    setError(null);
+
     try {
-      console.log('Starting email send process...');
-      
-      const response = await fetch('/api/email.ts', {
+      const response = await fetch('/api/email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to send email');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to send message');
       }
 
       const data = await response.json();
-      if (!data.success) {
-        throw new Error('Failed to send email');
-      }
-
-      toast({
-        title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
-      });
       
-      setFormData({
-        name: "",
-        email: "",
-        message: ""
-      });
-    } catch (error) {
-      console.error('Detailed error:', error);
-      toast({
-        title: "Error",
-        description: error instanceof Error ? error.message : "There was a problem sending your message. Please try again later.",
-        variant: "destructive",
-      });
+      if (data.success) {
+        setFormData({ name: '', email: '', message: '' });
+        setSuccess(true);
+        setTimeout(() => setSuccess(false), 5000);
+      } else {
+        throw new Error(data.error || 'Failed to send message');
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
-      setIsSubmitting(false);
+      setIsLoading(false);
     }
   };
 
