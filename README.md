@@ -24,7 +24,7 @@ A modern, responsive portfolio website built with React, TypeScript, and Tailwin
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/glass-flow-portfolio.git
+   git clone https://github.com/sarwannandh67/glass-flow-portfolio.git
    cd glass-flow-portfolio
    ```
 
