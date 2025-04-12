@@ -50,18 +50,44 @@ const handler: Handler = async (event) => {
 
     // Send notification email to admin
     const adminResponse = await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: 'Portfolio Contact <onboarding@resend.dev>',
       to: 'sarwannandhofficial672007@gmail.com',
       subject: `New Contact Form Submission from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2 style="color: #333;">New Contact Form Submission</h2>
+          <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Message:</strong></p>
+            <p style="margin-top: 10px;">${message}</p>
+          </div>
+          <p style="font-size: 12px; color: #666;">This is an automated notification from your portfolio website.</p>
+        </div>
+      `,
     });
 
     // Send auto-response to customer
     const customerResponse = await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: 'Sarwan Nandh <onboarding@resend.dev>',
       to: email,
-      subject: 'Thank you for contacting us',
-      text: `Hi ${name},\n\nThank you for reaching out. We have received your message and will get back to you soon.\n\nBest regards,\nSarwan Nandh`,
+      subject: 'Thank you for reaching out!',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2 style="color: #333;">Thank you for contacting me!</h2>
+          <p>Dear ${name},</p>
+          <p>Thank you for reaching out to me. I have received your message and will get back to you as soon as possible.</p>
+          <p>Here's a copy of your message for your reference:</p>
+          <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <p style="margin: 0;">${message}</p>
+          </div>
+          <p>Best regards,</p>
+          <p>Sarwan Nandh</p>
+          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+            <p style="font-size: 12px; color: #666;">This is an automated response. Please do not reply to this email.</p>
+          </div>
+        </div>
+      `,
     });
 
     return {
