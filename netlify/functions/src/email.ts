@@ -1,3 +1,4 @@
+import { Handler } from '@netlify/functions';
 import { Resend } from 'resend';
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
@@ -9,7 +10,7 @@ if (!RESEND_API_KEY) {
 
 const resend = new Resend(RESEND_API_KEY);
 
-export const handler = async (event: any) => {
+const handler: Handler = async (event) => {
   // Handle CORS
   if (event.httpMethod === 'OPTIONS') {
     return {
@@ -90,4 +91,6 @@ export const handler = async (event: any) => {
       }),
     };
   }
-}; 
+};
+
+export { handler }; 

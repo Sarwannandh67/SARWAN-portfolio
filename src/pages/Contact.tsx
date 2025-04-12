@@ -58,6 +58,8 @@ const Contact = () => {
     setError(null);
 
     try {
+      console.log('Sending form data:', formData);
+      
       const response = await fetch('/.netlify/functions/email', {
         method: 'POST',
         headers: {
@@ -70,12 +72,13 @@ const Contact = () => {
         }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Failed to send message');
-      }
-
+      console.log('Response status:', response.status);
       const data = await response.json();
+      console.log('Response data:', data);
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
       
       if (data.success) {
         setFormData({ name: '', email: '', message: '' });
@@ -85,6 +88,7 @@ const Contact = () => {
         throw new Error(data.error || 'Failed to send message');
       }
     } catch (err) {
+      console.error('Error details:', err);
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setIsLoading(false);

@@ -2,7 +2,18 @@
   "name": "netlify-functions",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "build": "tsc",
+    "start": "netlify-lambda serve src",
+    "build:functions": "netlify-lambda build src"
+  },
   "dependencies": {
+    "@netlify/functions": "^1.6.0",
     "resend": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "netlify-lambda": "^2.0.15",
+    "typescript": "^4.9.0"
   }
 } 
