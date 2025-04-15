@@ -7,7 +7,8 @@ import {
   MenuIcon, 
   XIcon, 
   LightbulbIcon, 
-  BookOpenIcon 
+  BookOpenIcon,
+  Monitor
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -54,6 +55,13 @@ const navigation = [
     icon: BookOpenIcon, 
     exact: true,
     animation: "group-hover:scale-110 group-hover:-rotate-6 group-hover:text-primary transition-all duration-300 ease-in-out"
+  },
+  { 
+    name: "GradePro", 
+    href: "/gradepro", 
+    icon: Monitor, 
+    exact: true,
+    animation: "group-hover:scale-110 group-hover:rotate-6 group-hover:text-primary transition-all duration-300 ease-in-out"
   },
 ];
 

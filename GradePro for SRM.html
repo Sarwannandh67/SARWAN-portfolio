@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradePro for SRM</title>
+    <style>
+        /* Navigation Bar */
+.nav-bar {
+    display: flex;
+    justify-content: center;
+    background-color: #292929;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+.nav-btn {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #3d3d3d;
+}
+/* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Container for the Calculator */
+.calculator-container {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* Title Styling */
+.title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #ccc6b8; /* Changed to soft neutral tone */
+}
+
+/* Display Section for CGPA */
+.display {
+    background-color: #292929;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.cgpa-value {
+    font-size: 2.5rem;
+    color: #ccc6b8; /* Changed to soft neutral tone */
+    display: block;
+}
+
+.cgpa-label {
+    font-size: 1rem;
+    color: #9e9e9e;
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #333;
+}
+
+.table th {
+    background-color: #333;
+    color: #e0e0e0;
+    font-weight: normal;
+    font-size: 1rem;
+}
+
+.table td {
+    background-color: #1e1e1e;
+}
+
+/* Input Field Styling */
+.input-field {
+    background-color: #292929;
+    color: #e0e0e0;
+    border: none;
+    border-radius: 8px;
+    padding: 5px;
+    text-align: center;
+    width: 80%;
+}
+
+.input-field:focus {
+    outline: 2px solid #ccc6b8; /* Changed to soft neutral tone */
+}
+
+/* Grade Dropdown Styling */
+.grade-select {
+    background-color: #292929;
+    color: #e0e0e0;
+    border: none;
+    border-radius: 8px;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+.grade-select:focus {
+    outline: 2px solid #ccc6b8; /* Changed to soft neutral tone */
+}
+
+/* Buttons Styling */
+.add-course,
+.delete-btn,
+.calculate-btn {
+    background-color: #292929;
+    color: #e0e0e0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+    width: auto;
+}
+
+.add-course:hover,
+.delete-btn:hover,
+.calculate-btn:hover {
+    background-color: #3d3d3d;
+}
+
+/* Footer Styling */
+.footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #9e9e9e;
+    font-size: 0.9rem;
+}
+
+.footer-text {
+    margin: 5px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .calculator-container {
+        padding: 15px;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .table th,
+    .table td {
+        padding: 5px;
+    }
+
+    .add-course,
+    .calculate-btn {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <button class="nav-btn" onclick="showCalculator('required-marks')">Required Marks Calculator</button>
+        <button class="nav-btn" onclick="showCalculator('gpa')">GPA Calculator</button>
+        <button class="nav-btn" onclick="showCalculator('about')">About</button>
+    </div>
+
+    <div id="required-marks" class="calculator-container">
+        <h1 class="title">Required Marks Calculator</h1>
+        <div class="display">
+            <span class="cgpa-value" id="required-marks-gpa">0</span>
+            <span class="cgpa-label">Overall GPA</span>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>S No</th>
+                    <th>Internal Marks</th>
+                    <th>Grade</th>
+                    <th>Required (40)</th>
+                    <th>Converted (75)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="courses-body"></tbody>
+        </table>
+        <div>
+            <button id="add-course" class="add-course">+ Add Course</button>
+        </div>
+    </div>
+    
+    <div id="gpa" class="calculator-container">
+        <h1 class="title">GPA Calculator</h1>
+        <div class="display">
+            <span class="cgpa-value" id="gpa-result">0</span>
+            <span class="cgpa-label">CGPA</span>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Grade</th>
+                    <th>Credits</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="gpa-body"></tbody>
+        </table>
+        <div>
+            <button id="add-gpa-course" class="add-course">+ Add Course</button>
+            <button id="calculate-gpa" class="calculate-btn">Calculate GPA</button>
+        </div>
+    </div>
+    
+    <div id="about" class="calculator-container">
+        <h1 class="title">About GradePro for SRM</h1>
+        <div class="display">
+            <span class="cgpa-value">GradePro</span>
+            <span class="cgpa-label">for SRM University</span>
+        </div>
+        <div style="text-align: left; padding: 15px;">
+            <p style="margin-bottom: 15px;">GradePro is a specialized calculator designed for SRM University students to help with academic planning and grade calculations.</p>
+            
+            <p style="margin-bottom: 15px;"><strong>Features:</strong></p>
+            <ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 15px;">
+                <li>Calculate required marks needed to achieve desired grades</li>
+                <li>Compute GPA based on course grades and credits</li>
+                <li>Instantly see your potential overall GPA</li>
+            </ul>
+            
+            <p style="margin-bottom: 15px;"><strong>How to use:</strong></p>
+            <p style="margin-bottom: 15px;">Simply add your courses, input your internal marks, select your target grades, and the calculator will show you what marks you need to achieve in your exams.</p>
+            
+            <p>For any suggestions or feedback, please contact on instagram <a href="https://www.instagram.com/sarwannandh/" style="color: #ccc6b8; text-decoration: none;">@sarwannandh</a></p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p class="footer-text">Made with ❤️ by <a href="https://www.instagram.com/sarwannandh/" style="color: #9e9e9e; text-decoration: none;">@sarwannandh</a></p>
+    </div>
+    
+    <script>
+        function showCalculator(id) {
+            document.querySelectorAll('.calculator-container').forEach(el => el.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+        }
+
+        showCalculator('required-marks');
+        
+        const GRADE_CUTOFFS = { 'O': 90, 'A+': 80, 'A': 70, 'B+': 60, 'B': 50, 'C': 40, 'F': 0 };
+        const coursesBody = document.getElementById('courses-body');
+        const addCourseBtn = document.getElementById('add-course');
+        const toggleModeBtn = document.querySelector('.toggle-mode');
+        let isDarkMode = true;
+
+        function addCourseRow() {
+            const rowCount = coursesBody.rows.length + 1;
+            const row = document.createElement('tr');
+            row.classList.add('course-row');
+            row.innerHTML = `
+                <td>${rowCount}</td>
+                <td><input type="number" min="0" max="60" step="0.1" class="input-field"></td>
+                <td>
+                    <select class="grade-select">
+                        <option value="O">O</option>
+                        <option value="A+">A+</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="F">F</option>
+                    </select>
+                </td>
+                <td>-</td>
+                <td>-</td>
+                <td><button class="delete-btn">Delete</button></td>
+            `;
+            coursesBody.appendChild(row);
+            row.querySelector('.delete-btn').addEventListener('click', () => {
+                row.remove();
+                calculateRequiredMarksGPA();
+            });
+            row.querySelector('input').addEventListener('input', updateMarks);
+            row.querySelector('select').addEventListener('change', updateMarks);
+        }
+
+        function updateMarks() {
+            coursesBody.querySelectorAll('.course-row').forEach(row => {
+                const internalMarks = parseFloat(row.cells[1].querySelector('input').value) || 0;
+                const grade = row.cells[2].querySelector('select').value;
+                let requiredExternal = Math.ceil((GRADE_CUTOFFS[grade] * 135 / 100) - internalMarks);
+                
+                if (requiredExternal > 75) {
+                    row.cells[3].textContent = 'Impossible';
+                    row.cells[4].textContent = 'Impossible';
+                } else {
+                    row.cells[3].textContent = `${Math.ceil((requiredExternal / 75) * 40)} / 40`;
+                    row.cells[4].textContent = `${requiredExternal} / 75`;
+                }
+            });
+            
+            // Calculate overall GPA
+            calculateRequiredMarksGPA();
+        }
+        
+        function calculateRequiredMarksGPA() {
+            let totalPoints = 0;
+            let totalCourses = 0;
+            const gradePoints = { 'O': 10, 'A+': 9, 'A': 8, 'B+': 7, 'B': 6, 'C': 5, 'F': 0 };
+            
+            coursesBody.querySelectorAll('.course-row').forEach(row => {
+                const grade = row.cells[2].querySelector('select').value;
+                if (grade && row.cells[3].textContent !== 'Impossible') {
+                    totalPoints += gradePoints[grade];
+                    totalCourses++;
+                }
+            });
+            
+            const gpa = totalCourses > 0 ? (totalPoints / totalCourses).toFixed(2) : '0';
+            document.getElementById('required-marks-gpa').textContent = gpa;
+        }
+
+        addCourseBtn.addEventListener('click', addCourseRow);
+        
+    </script>
+
+    <script>
+         document.getElementById('add-gpa-course').addEventListener('click', function() {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>
+                    <select class="grade-select">
+                        <option value="10">O</option>
+                        <option value="9">A+</option>
+                        <option value="8">A</option>
+                        <option value="7">B+</option>
+                        <option value="6">B</option>
+                        <option value="5">C</option>
+                        <option value="0">F</option>
+                    </select>
+                </td>
+                <td><input type="number" min="1" max="5" step="1" class="input-field"></td>
+                <td><button class="delete-btn" onclick="this.parentElement.parentElement.remove()">Delete</button></td>
+            `;
+            document.getElementById('gpa-body').appendChild(row);
+        });
+
+        document.getElementById('calculate-gpa').addEventListener('click', function() {
+            let totalCredits = 0;
+            let totalPoints = 0;
+            
+            document.querySelectorAll('#gpa-body tr').forEach(row => {
+                const grade = parseFloat(row.cells[0].querySelector('select').value);
+                const credits = parseFloat(row.cells[1].querySelector('input').value) || 0;
+                totalPoints += grade * credits;
+                totalCredits += credits;
+            });
+            
+            const gpa = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : '-';
+            document.getElementById('gpa-result').textContent = gpa;
+        });
+    </script>
+</body>
+</html> 

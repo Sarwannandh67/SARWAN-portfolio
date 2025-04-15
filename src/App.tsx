@@ -9,6 +9,7 @@ import Index from "@/pages/Index";
 import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
 import NotFound from "@/pages/NotFound";
+import GradePro from "@/pages/GradePro";
 import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 
@@ -68,6 +69,7 @@ const AnimatedRoutes = () => {
           <Route path="/" element={<Index />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/gradepro" element={<GradePro />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </PageTransition>

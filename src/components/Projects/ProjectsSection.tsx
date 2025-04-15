@@ -2,6 +2,7 @@ import { useState } from "react";
 import ScrollReveal from "../ui/ScrollReveal";
 import GlassCard from "../ui/GlassCard";
 import { Github, ArrowUpRight, ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // Project data
 const projects = [
@@ -18,10 +19,11 @@ const projects = [
     id: 2,
     title: "GradePro for SRM",
     description: "A grade calculator app designed specifically for SRM University students.",
-    tags: ["HTML5", "CSS3", "Java Script"],
+    tags: ["React", "TypeScript", "CSS Modules"],
     imageUrl: "/projects/project2.png",
-    liveUrl: "#",
+    liveUrl: "/gradepro",
     githubUrl: "#",
+    isInternal: true
   },
   {
     id: 3,
@@ -117,15 +119,25 @@ const ProjectsSection = () => {
                   </div>
                   
                   <div className="flex gap-6">
-                    <a 
-                      href={project.liveUrl} 
-                      className="flex items-center gap-2 text-sm hover:text-primary transition-all duration-300 group-hover:translate-x-1"
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                    >
-                      <ArrowUpRight className="h-5 w-5" />
-                      <span>Live Demo</span>
-                    </a>
+                    {project.isInternal ? (
+                      <Link 
+                        to={project.liveUrl} 
+                        className="flex items-center gap-2 text-sm hover:text-primary transition-all duration-300 group-hover:translate-x-1"
+                      >
+                        <ArrowUpRight className="h-5 w-5" />
+                        <span>Live Demo</span>
+                      </Link>
+                    ) : (
+                      <a 
+                        href={project.liveUrl} 
+                        className="flex items-center gap-2 text-sm hover:text-primary transition-all duration-300 group-hover:translate-x-1"
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        <ArrowUpRight className="h-5 w-5" />
+                        <span>Live Demo</span>
+                      </a>
+                    )}
                     <a 
                       href={project.githubUrl} 
                       className="flex items-center gap-2 text-sm hover:text-primary transition-all duration-300 group-hover:translate-x-1"

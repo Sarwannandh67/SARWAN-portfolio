@@ -43,6 +43,11 @@ const Footer = () => {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link to="/gradepro" className="text-muted-foreground hover:text-foreground transition-colors">
+                  GradePro
+                </Link>
+              </li>
               {["Projects", "Skills", "About"].map((item) => (
                 <li key={item}>
                   <a 

@@ -1,0 +1,243 @@
+/* Navigation Bar */
+.navBar {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(41, 41, 41, 0.8);
+  padding: 10px 0;
+  margin: 20px auto;
+  border-radius: 12px;
+  max-width: 800px;
+  width: 100%;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 84px;
+  z-index: 10;
+}
+
+.navBtn {
+  background-color: rgba(30, 30, 30, 0.8);
+  color: #e0e0e0;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.navBtn:hover {
+  background-color: rgba(61, 61, 61, 0.9);
+  transform: translateY(-1px);
+}
+
+.navBtn.active {
+  background-color: rgba(61, 61, 61, 0.9);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Container */
+.container {
+  padding: 20px;
+  color: #e0e0e0;
+  min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 100px; /* Add space for footer */
+}
+
+/* Calculator Container */
+.calculatorContainer {
+  background-color: rgba(30, 30, 30, 0.8);
+  padding: 20px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Title Styling */
+.title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #ccc6b8;
+}
+
+/* Display Section */
+.display {
+  background-color: #292929;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.cgpaValue {
+  font-size: 2.5rem;
+  color: #ccc6b8;
+  display: block;
+}
+
+.cgpaLabel {
+  font-size: 1rem;
+  color: #9e9e9e;
+}
+
+/* Table Styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #333;
+}
+
+.table th {
+  background-color: #333;
+  color: #e0e0e0;
+  font-weight: normal;
+  font-size: 1rem;
+}
+
+.table td {
+  background-color: #1e1e1e;
+}
+
+/* Input Field Styling */
+.inputField {
+  background-color: #292929;
+  color: #e0e0e0;
+  border: none;
+  border-radius: 8px;
+  padding: 5px;
+  text-align: center;
+  width: 80%;
+}
+
+.inputField:focus {
+  outline: 2px solid #ccc6b8;
+}
+
+/* Grade Dropdown Styling */
+.gradeSelect {
+  background-color: #292929;
+  color: #e0e0e0;
+  border: none;
+  border-radius: 8px;
+  padding: 5px;
+  text-align: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+.gradeSelect:focus {
+  outline: 2px solid #ccc6b8;
+}
+
+/* Buttons Styling */
+.addCourse,
+.deleteBtn,
+.calculateBtn {
+  background-color: #292929;
+  color: #e0e0e0;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+  width: auto;
+}
+
+.addCourse:hover,
+.deleteBtn:hover,
+.calculateBtn:hover {
+  background-color: #3d3d3d;
+}
+
+/* About Content */
+.aboutContent {
+  text-align: left;
+  padding: 15px;
+}
+
+.aboutContent p {
+  margin-bottom: 15px;
+}
+
+.aboutContent ul {
+  list-style-type: disc;
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.aboutContent a {
+  color: #ccc6b8;
+  text-decoration: none;
+}
+
+.aboutContent a:hover {
+  text-decoration: underline;
+}
+
+/* Footer Styling */
+.footer {
+  margin-top: auto;
+  text-align: center;
+  color: #9e9e9e;
+  font-size: 0.9rem;
+  padding: 20px 0;
+}
+
+.footer a {
+  color: #9e9e9e;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .calculatorContainer {
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 5px;
+  }
+
+  .addCourse,
+  .calculateBtn {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+
+  .navBtn {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+} 
