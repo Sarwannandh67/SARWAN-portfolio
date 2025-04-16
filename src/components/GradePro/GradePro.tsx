@@ -4,12 +4,12 @@ import styles from './GradePro.module.css';
 type Calculator = 'required-marks' | 'gpa' | 'about';
 
 const GRADE_CUTOFFS = {
-  'O': 90,
-  'A+': 80,
-  'A': 70,
-  'B+': 60,
-  'B': 50,
-  'C': 40,
+  'O': 91,
+  'A+': 81,
+  'A': 71,
+  'B+': 61,
+  'B': 51,
+  'C': 41,
   'F': 0
 };
 
