@@ -216,28 +216,97 @@
 }
 
 /* Responsive Design */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .navBar {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    position: relative;
+    top: 0;
+  }
+
+  .navBtn {
+    flex: 1 1 auto;
+    min-width: 140px;
+    margin: 5px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
   .calculatorContainer {
-    padding: 15px;
+    padding: 15px 10px;
+    margin: 10px;
+    overflow-x: auto;
   }
 
   .title {
     font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .display {
+    padding: 10px;
+  }
+
+  .cgpaValue {
+    font-size: 2rem;
+  }
+
+  .table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 15px;
   }
 
   .table th,
   .table td {
-    padding: 5px;
+    padding: 8px;
+    font-size: 0.9rem;
+    min-width: 80px;
+  }
+
+  .inputField,
+  .gradeSelect {
+    width: 100%;
+    min-width: 60px;
+    padding: 8px;
+    font-size: 0.9rem;
   }
 
   .addCourse,
+  .deleteBtn,
   .calculateBtn {
-    font-size: 0.9rem;
-    padding: 8px 15px;
+    width: 100%;
+    margin: 5px 0;
+    padding: 12px;
+    font-size: 1rem;
   }
 
-  .navBtn {
-    padding: 8px 15px;
+  .aboutContent {
+    padding: 10px;
     font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navBtn {
+    min-width: 100%;
+  }
+
+  .table th,
+  .table td {
+    padding: 6px;
+    font-size: 0.85rem;
+    min-width: 70px;
+  }
+
+  .cgpaValue {
+    font-size: 1.8rem;
+  }
+
+  .title {
+    font-size: 1.3rem;
   }
 } 
