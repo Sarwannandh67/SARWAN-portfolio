@@ -56,7 +56,7 @@ const Header = () => {
             variant="outline" 
             size="sm" 
             className="flex items-center gap-2 border-primary text-primary hover:bg-primary/10"
-            onClick={() => window.open("/resume.pdf", "_blank")}
+            onClick={() => window.open("/documents/SARWAN THONDAMALLA.pdf", "_blank")}
           >
             Resume <Download className="h-4 w-4" />
           </Button>

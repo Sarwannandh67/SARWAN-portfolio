@@ -199,30 +199,41 @@ const FloatingNav = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="glass px-6 py-3 rounded-full flex items-center space-x-4 hover:scale-105 transition-all duration-300 ease-out">
-          {navigation.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              onClick={(e) => handleNavigationClick(e, item.href)}
-              className={cn(
-                "nav-item flex items-center space-x-1 group relative",
-                isActive(item) && "active"
-              )}
-            >
-              <div className="absolute inset-0 bg-primary/5 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300" />
-              <item.icon className={cn("h-4 w-4 relative z-10", item.animation)} />
-              <span className="group-hover:scale-105 group-hover:translate-x-1 transition-all duration-300 relative z-10">{item.name}</span>
-            </a>
-          ))}
+        <div className="bg-background/80 backdrop-blur-md rounded-full p-2 shadow-lg border border-border/50">
+          <div className="flex items-center justify-center space-x-4">
+            {navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                onClick={(e) => handleNavigationClick(e, item.href)}
+                className={cn(
+                  "group flex flex-col items-center justify-center w-12 h-12 rounded-full hover:bg-muted transition-colors relative",
+                  isActive(item) && "bg-muted text-primary"
+                )}
+              >
+                {item.icon && (
+                  <item.icon
+                    className={cn(
+                      "h-5 w-5",
+                      item.animation
+                    )}
+                  />
+                )}
+                <span className="sr-only">{item.name}</span>
+                <div className="absolute -top-10 scale-0 transition-all rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">
+                  {item.name}
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
       </nav>
-
+      
       <button
         onClick={toggleMobileMenu}
         className={cn(
-          "fixed bottom-8 right-4 z-50 p-3 rounded-full md:hidden transition-all duration-300",
-          "glass hover:scale-110"
+          "md:hidden fixed bottom-8 right-8 z-50 bg-background/80 backdrop-blur-md p-4 rounded-full shadow-lg border border-border/50 transition-all duration-300",
+          visible ? "translate-y-0 opacity-100" : "translate-y-28 opacity-0"
         )}
       >
         {mobileMenuOpen ? (
@@ -232,34 +243,35 @@ const FloatingNav = () => {
         )}
       </button>
 
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 md:hidden">
-          <div className="fixed inset-0 bg-background/80 backdrop-blur-sm" onClick={toggleMobileMenu} />
-          <nav className="fixed bottom-24 right-4 p-4 rounded-lg glass">
-            <div className="flex flex-col space-y-4">
-              {navigation.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  onClick={(e) => {
-                    handleNavigationClick(e, item.href);
-                    toggleMobileMenu();
-                  }}
-                  className={cn(
-                    "flex items-center space-x-2 px-4 py-2 rounded-md transition-colors duration-200",
-                    isActive(item) 
-                      ? "bg-primary/10 text-primary" 
-                      : "hover:bg-primary/5 text-muted-foreground hover:text-foreground"
-                  )}
-                >
-                  <item.icon className="h-5 w-5" />
-                  <span>{item.name}</span>
-                </a>
-              ))}
-            </div>
-          </nav>
-        </div>
-      )}
+      <div
+        className={cn(
+          "fixed inset-0 z-40 md:hidden transition-all duration-300 ease-in-out",
+          mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        )}
+      >
+        <div className="absolute inset-0 bg-background/80 backdrop-blur-md" onClick={toggleMobileMenu} />
+        <nav className="absolute bottom-28 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-background rounded-lg shadow-lg border border-border/50 p-6">
+          <div className="grid grid-cols-3 gap-4">
+            {navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                onClick={(e) => {
+                  handleNavigationClick(e, item.href);
+                  toggleMobileMenu();
+                }}
+                className={cn(
+                  "flex flex-col items-center justify-center p-4 rounded-lg hover:bg-muted transition-colors text-center",
+                  isActive(item) && "bg-muted text-primary"
+                )}
+              >
+                {item.icon && <item.icon className="h-6 w-6 mb-2" />}
+                <span className="text-sm">{item.name}</span>
+              </a>
+            ))}
+          </div>
+        </nav>
+      </div>
     </>
   );
 };
