@@ -12,6 +12,7 @@ import NotFound from "@/pages/NotFound";
 import GradePro from "@/pages/GradePro";
 import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
+import BlogPost from "@/pages/BlogPost";
 
 // Create a client with better error handling
 const queryClient = new QueryClient({
@@ -68,6 +69,7 @@ const AnimatedRoutes = () => {
         <Routes location={location}>
           <Route path="/" element={<Index />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/gradepro" element={<GradePro />} />
           <Route path="*" element={<NotFound />} />
