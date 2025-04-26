@@ -63,7 +63,7 @@ const getSkillIconUrl = (icon: string): string => {
     figma: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
   };
   
-  return iconMap[icon] || "https://via.placeholder.com/40";
+  return iconMap[icon] || "https://placehold.co/40/6d00aa/ffffff?text=Icon";
 };
 
 const SkillsSection = () => {

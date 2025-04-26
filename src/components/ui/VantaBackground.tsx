@@ -31,7 +31,7 @@ const VantaBackground = ({ className, children, onError }: VantaBackgroundProps)
     
     // Function to check if scripts are already loaded
     const areScriptsLoaded = () => {
-      const hasThree = typeof window.THREE !== 'undefined';
+      const hasThree = typeof window.THREE !== 'undefined' && window.THREE.Group !== undefined;
       const hasVanta = typeof window.VANTA !== 'undefined';
       console.log("VantaBackground: Scripts loaded check", { hasThree, hasVanta });
       return hasThree && hasVanta;
@@ -55,7 +55,8 @@ const VantaBackground = ({ className, children, onError }: VantaBackgroundProps)
           script.async = true;
           script.onload = () => {
             console.log(`VantaBackground: Script ${src} loaded successfully`);
-            resolve();
+            // Add a small delay to ensure the script is fully initialized
+            setTimeout(resolve, 100);
           };
           script.onerror = (e) => {
             console.error(`VantaBackground: Failed to load script: ${src}`, e);
@@ -77,13 +78,13 @@ const VantaBackground = ({ className, children, onError }: VantaBackgroundProps)
         return;
       }
       
-      if (!window.VANTA) {
-        console.error("VantaBackground: VANTA is not available");
+      if (!window.VANTA || !window.THREE || !window.THREE.Group) {
+        console.error("VantaBackground: VANTA or THREE is not available");
         // If initialization fails, try again after a delay
         if (initAttemptsRef.current < maxInitAttempts) {
           initAttemptsRef.current += 1;
           console.log(`VantaBackground: Retrying initialization (attempt ${initAttemptsRef.current}/${maxInitAttempts})`);
-          setTimeout(initVanta, 500);
+          setTimeout(initVanta, 1000);
           return;
         }
         return;
@@ -151,15 +152,19 @@ const VantaBackground = ({ className, children, onError }: VantaBackgroundProps)
         }
         
         // Load Three.js if not already loaded
-        if (!window.THREE) {
+        if (!window.THREE || !window.THREE.Group) {
           console.log("VantaBackground: Loading Three.js");
           await loadScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js");
+          // Add a small delay to ensure Three.js is fully initialized
+          await new Promise(resolve => setTimeout(resolve, 200));
         }
 
         // Load Vanta.js if not already loaded
         if (!window.VANTA) {
           console.log("VantaBackground: Loading Vanta.js");
           await loadScript("https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js");
+          // Add a small delay to ensure Vanta.js is fully initialized
+          await new Promise(resolve => setTimeout(resolve, 200));
         }
         
         // Initialize Vanta after scripts are loaded

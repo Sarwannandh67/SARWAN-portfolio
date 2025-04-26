@@ -44,7 +44,7 @@ const AboutSection = () => {
               <div className="md:w-1/3">
                 <div className="aspect-square rounded-xl overflow-hidden glass mb-4">
                   <img 
-                    src="https://via.placeholder.com/400x400?text=Profile" 
+                    src="https://placehold.co/400x400/6d00aa/ffffff?text=Profile" 
                     alt="Profile" 
                     className="w-full h-full object-cover"
                   />
